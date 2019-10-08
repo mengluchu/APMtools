@@ -32,4 +32,5 @@ Imports:
   data.table, 
   Matrix, 
   GGally,
-  stats
+  stats,
+  mvtnorm
