@@ -1,6 +1,6 @@
 #' remove dips
 #' @param x a vector that the extreme values are to be removed
-#' @description  remove time series points that is less than a certain percentage (by default 15%) of the NO2 measured in the previous of the next time stamp
+#' @description  remove time series points that is less than a certain percentage (by default 15%) of the NO2 measured in the previous or the next time stamp
 #' @return time series with dips removed
 #' @export
 
@@ -18,10 +18,10 @@ removedips = function(x, perce = 0.15) {
         mida = x[c] - x[i]
         midc = x[c] - x[b]
         # Find 20 percent
-        threshold1 = -perce * x[i]
-        threshold2 = -perce * x[b]
+        threshold1 = perce * x[i]
+        threshold2 = perce * x[b]
         # check threshold
-        if (mida < 0 & midc < 0 & mida < threshold1 | midc < threshold2) {
+        if (mida < 0 & midc < 0 & x[c] < threshold1 | x[c] < threshold2) {
             y[c] = NA
         }
     }
