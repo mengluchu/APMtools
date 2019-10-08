@@ -14,8 +14,7 @@ mechanical(variabledf, y_var = c("day_value", "night_value",
 
 \item{y_var}{name of the dependent variable.}
 
-\item{pop_var}{the name of an additional variable as a linear term,  usually population withn a buffer, a string.
-@param Road_varname the name of variables contains road buffers, e.g. 'ROAD'}
+\item{pop_var}{the name of an additional variable as a linear term,  usually population withn a buffer, a string.}
 
 \item{distance_centre}{the distance to centre from each buffer.  (b2-b1)/2 + b1}
 
@@ -24,6 +23,8 @@ mechanical(variabledf, y_var = c("day_value", "night_value",
 \item{test}{the index for the rows used for testing.}
 
 \item{nls2start}{the start value for nls2. if providing an nls2start, the nls2 from nls2 package is used. Details see nls2.}
+
+\item{Road_varname}{the name of variables contains road buffers, e.g. 'ROAD'}
 
 \item{normalize}{if True, the road ring is normalised by the area (default is false)}
 }
@@ -35,4 +36,9 @@ mechanical model: use an exponential function to describe the coefficients away 
 }
 \details{
 This method used nls for modelling. This function also prints errormatrix, the exponential model; plot coefficient. The modelling and evaluation should be separated at a later stage, now putting together for exploration only.
+}
+\examples{
+\donttest{
+mechanical(inde_var,'day_value',pop_var = 'pop5k', distance_centre = distance_centre, training, test)
+}
 }

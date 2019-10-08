@@ -29,8 +29,9 @@ devide the data into test and training set, and prepare the dataframe for modeli
 NA values are removed. This function is used for preprocessing, can be improved.
 }
 \examples{
+\donttest{
 a = sampledf(merged, fraction = 0.8, 'ES')
 test = a$test
 training = a$training
-inde_var = a$indevar
+inde_var = a$indevar}
 }

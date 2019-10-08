@@ -21,3 +21,11 @@ retrieve_predictor(predictorstack, pointdatafile, coordslonlat, proj,
 \description{
 read predictor values at the point locations, returns a dataframe or save into a csv
 }
+\examples{
+\donttest{
+lus = raster("/data/lu01/NWA/predictor/NLstack.grd")
+lf_lo = list.files("/data/lu01/NWA/Bakfietsdata", pattern = "^.*morning.*.csv$", full.names = T)
+bakfile1 = read.csv(lf_lo[1])
+proj = "+proj=longlat +datum=WGS84"
+retrieve_predictor(lus, bakfile1, c("Lon", "Lat"), proj)}
+}

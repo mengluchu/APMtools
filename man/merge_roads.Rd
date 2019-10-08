@@ -19,3 +19,6 @@ a data frame with merged road types
 \description{
 create a ring function
 }
+\examples{
+\donttest{merge_roads(inde_var,c(1,2))}
+}

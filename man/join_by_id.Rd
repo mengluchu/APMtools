@@ -22,3 +22,12 @@ a dataframe
 \description{
 Join variables with coordinates to the destination file by ID, so it requires an ID file with coordinates
 }
+\examples{
+\donttest{join_by_id(IDfile= testoaq, coordinatefile=meanoaq, file2merge = merged, varname='day_mean')
+require(sf)
+require(maptools)
+require(sp)
+meanoaq = read.csv('q_day.csv') #locations and values
+testoaq = read.csv('openaqmorethan1000_ch_locations.csv') # ID with locaitons
+join_by_id(IDfile= testoaq, coordinatefile=d, file2merge = merged, varname='value', newname = 'day_value')}
+}

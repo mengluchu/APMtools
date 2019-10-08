@@ -6,9 +6,12 @@
 \usage{
 removedips(x, perce = 0.15)
 }
+\arguments{
+\item{x}{a vector that the extreme values are to be removed}
+}
 \value{
 time series with dips removed
 }
 \description{
-remove dips
+remove time series points that is less than a certain percentage (by default 15%) of the NO2 measured in the previous of the next time stamp
 }

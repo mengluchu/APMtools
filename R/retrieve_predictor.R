@@ -5,12 +5,13 @@
 #'@param proj the projection of the point file
 #'@param csvname the name to save the csv file
 #'@export
-#'@example
+#'@examples
+#'\donttest{
 #' lus = raster("/data/lu01/NWA/predictor/NLstack.grd")
 #' lf_lo = list.files("/data/lu01/NWA/Bakfietsdata", pattern = "^.*morning.*.csv$", full.names = T)
 #' bakfile1 = read.csv(lf_lo[1])
 #' proj = "+proj=longlat +datum=WGS84"
-#' retrieve_predictor(lus, bakfile1, c("Lon", "Lat"), proj)
+#' retrieve_predictor(lus, bakfile1, c("Lon", "Lat"), proj)}
 
 retrieve_predictor = function(predictorstack, pointdatafile, coordslonlat, proj, csvname= substr(pointdatafile, 30,34))
 {

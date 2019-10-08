@@ -1,8 +1,7 @@
 Package: APMtools
-Title: Tools for staistical air pollution mapping
-Version: 0.1
-Authors@R: 
-    person(given = "Meng",
+Title: statistical air pollution mapping tools
+Version: 0.0.0.9000
+Authors@R: person(given = "Meng",
            family = "Lu",
            role = c("aut", "cre"),
            email = "m.lu@uu.nl")
