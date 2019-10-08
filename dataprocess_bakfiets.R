@@ -5,14 +5,14 @@ ipak <- function(pkg){
     install.packages(new.pkg, dependencies = TRUE, repos='http://cran.muenster.r-project.org')
   sapply(pkg, require, character.only = TRUE)
 }
-packages <- c( "raster", "dplyr", "devtools", "rgdal","Matrix","xgboost", "data.table" , "randomForest", "glmnet" )
+packages <- c( "raster", "dplyr", "devtools", "rgdal","Matrix","xgboost", "data.table" , "randomForest", "glmnet" ,"sf"  )
 ipak(packages)
 install_github("mengluchu/APMtools")
 library(APMtools)
-
+library(sf)
 #bakfietsdata
-#lf_lo = list.files("/data/lu01/NWA/Bakfietsdata", pattern = "^.*morning.*.csv$", full.names = T)
-lf_lo = list.files("E:/NWA/Bakfietsdata", pattern = "^.*morning.*.csv$", full.names = T)
+lf_lo = list.files("/data/lu01/NWA/Bakfietsdata", pattern = "^.*morning.*.csv$", full.names = T)
+#lf_lo = list.files("E:/NWA/Bakfietsdata", pattern = "^.*morning.*.csv$", full.names = T)
 bakfile1 = read.csv(lf_lo[1])
 proj = "+proj=longlat +datum=WGS84"
 
@@ -21,9 +21,11 @@ proj = "+proj=longlat +datum=WGS84"
 #lf  = lf[ which(grepl("road_class|indust", lf))]
 #sr = stack(lf)
 #writeRaster(sr, "/data/lu01/NWA/allNLstack.grd", format="raster")
-sr =  stack("/data/lu01/NWA/allNLstack.grd")
+#sr =  stack("/data/lu01/NWA/allNLstack.grd")
+#
+library(raster)
 sr =  stack("E:/NWA/allNLstack.grd")
-df = retrieve_predictor(sr, bakfile1, c("Lon", "Lat"), proj)}
+df = retrieve_predictor(sr, bakfile1, c("Lon", "Lat"), proj)
 
 # predict tiles
 xgbname = "xgb16-Jul_bakfiets.tif"
