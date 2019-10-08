@@ -17,7 +17,7 @@ removedips = function(x, perce = 0.15) {
             next
         mida = x[c] - x[i]
         midc = x[c] - x[b]
-        # Find 20 percent
+
         threshold1 = perce * x[i]
         threshold2 = perce * x[b]
         # check threshold
