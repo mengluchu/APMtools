@@ -4,7 +4,8 @@
 \alias{predicLA_RF_XGBtiles}
 \title{predict tiles using LA, RF, SGB}
 \usage{
-predicLA_RF_XGBtiles(df, rasstack, yname, xgbname, rfname, laname,
+predicLA_RF_XGBtiles(df, rasstack, yname,
+  varstring = "|road_class_|indus", xgbname, rfname, laname,
   ntree = 1000, max_depth = 6, eta = 0.02, nthread = 4,
   nrounds = 1000, ...)
 }
@@ -14,6 +15,8 @@ predicLA_RF_XGBtiles(df, rasstack, yname, xgbname, rfname, laname,
 \item{rasstack}{rasterstack, predictors}
 
 \item{yname}{the y variable name}
+
+\item{varstring}{the variables to subset (grep style)}
 
 \item{xgbname}{output filename for xgb}
 
@@ -36,5 +39,5 @@ lf_lo = list.files("/data/lu01/NWA/Bakfietsdata", pattern = "^.*morning.*.csv$",
 bakfile1 = read.csv(lf_lo[1])
 proj = "+proj=longlat +datum=WGS84"
 df = retrieve_predictor(lus, bakfile1, c("Lon", "Lat"), proj)
-wrapplot(df, lus, "NO2", xgbname=xgbname, rfname = rfname, laname = laname )}
+predicLA_RF_XGBtiles(df, lus, "NO2", xgbname=xgbname, rfname = rfname, laname = laname )}
 }
