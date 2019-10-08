@@ -1,0 +1,36 @@
+Package: APMtools
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Meng",
+           family = "Lu",
+           role = c("aut", "cre"),
+           email = "m.lu@uu.nl")
+Description: tools for statistical air pollution mapping.
+License: What license it uses
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+Imports: 
+  dplyr, 
+  ggplot2, 
+  sp, 
+  sf, 
+  raster, 
+  rasterVis,
+  glmnet, 
+  ranger, 
+  gbm, 
+  xgboost, 
+  party, 
+  caret, 
+  gstat, 
+  tidyr, 
+  reshape2,
+  countrycode, 
+  htmlwidgets, 
+  data.table, 
+  Matrix, 
+  GGally,
+  stats
