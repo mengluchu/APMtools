@@ -1,6 +1,6 @@
 Package: APMtools
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Tools for staistical air pollution mapping
+Version: 0.1
 Authors@R: 
     person(given = "Meng",
            family = "Lu",
