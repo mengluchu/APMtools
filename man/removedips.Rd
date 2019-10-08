@@ -13,5 +13,5 @@ removedips(x, perce = 0.15)
 time series with dips removed
 }
 \description{
-remove time series points that is less than a certain percentage (by default 15%) of the NO2 measured in the previous of the next time stamp
+remove time series points that is less than a certain percentage (by default 15%) of the NO2 measured in the previous or the next time stamp
 }
