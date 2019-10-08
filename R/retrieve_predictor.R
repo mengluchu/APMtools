@@ -20,7 +20,7 @@ retrieve_predictor = function(predictorstack, pointdatafile, coordslonlat, proj,
   `st_crs<-` (proj) %>%
   st_transform(crs(predictorstack)@projargs) %>% as_Spatial()
   p1 = extract(predictorstack, sploc, sp=T)
-  write.csv(p1, paste0(csvname, ".csv"))
+  write.csv(p1, file = paste0(csvname, ".csv"))
 }
 
 #openaq
