@@ -22,13 +22,14 @@ Imports:
   gbm, 
   xgboost, 
   party, 
-  caret, 
-  gstat, 
   tidyr, 
   reshape2,
   countrycode, 
-  htmlwidgets, 
   data.table, 
   Matrix, 
-  GGally,
   stats 
+Suggests:
+  GGally,
+  caret, 
+  gstat, 
+  htmlwidgets 
