@@ -25,15 +25,40 @@ proj = "+proj=longlat +datum=WGS84"
 #
 library(raster)
 sr =  stack("E:/NWA/allNLstack.grd")
-df = retrieve_predictor(sr, bakfile1, c("Lon", "Lat"), proj)
+retrieve_predictor(sr, bakfile1, c("Lon", "Lat"), proj, csvname = "b16Jall") # if  extracted from the same raster stack then the names are the same, so dont need to change them.
+df = read.csv("b16Jall.csv")
 
 # predict tiles
 xgbname = "xgb16-Jul_bakfiets.tif"
 rfname = "rf16-Jul_bakfiets.tif"
 laname = "la16-Jul_bakfiets.tif"
-predicLA_RF_XGBtiles(df = df , rasstack = sr, yname = "NO2", varstring = "|road_class_|indus", xgbname=xgbname, rfname = rfname, laname = laname, ntree = 1000,   max_depth = 6, eta = 0.02, nthread = 4, nrounds = 1000 )}
+df = na.omit(df)
+predicLA_RF_XGBtiles(df = df , rasstack = sr, yname = "NO2", varstring = "|road_class_|indus", xgbname=xgbname, rfname = rfname, laname = laname, ntree = 1000,   max_depth = 6, eta = 0.02, nthread = 4, nrounds = 1000 )
+
+# another test: global model prediction
+xgbname = "xgbmadridm.tif"
+rfname = "rfmadridm.tif"
+laname = "Lamadridm.tif"
+install_github("mengluchu/APMtools")
+library(APMtools)
+data(merged)
+merged = merged%>% na_if( -1)%>%na.omit
+
+a= sampledf(merged,fraction = 1, country2digit = 'World') #for world
+inde_var = a$inde_var
+names(inde_var) = gsub("ROAD_", "road_class_", names(inde_var))
+names(inde_var) = gsub("I_1", "industry", names(inde_var))
+names(inde_var) = gsub("Tropomi_2018", "trop_mean_filt", names(inde_var))
+names(inde_var) = gsub("RSp", "Rsp", names(inde_var))
+
+
+sr = stack(list.files("/data/lu01/madrid/laea", full.names = T))
+predicLA_RF_XGBtiles(df = inde_var, rasstack = sr, yname = "value_mean", varstring = "|road|temperature|wind|pop|ele|Rsp|rop|OMI|industry", xgbname=xgbname, rfname = rfname, laname = laname, ntree = 1000,   max_depth = 6, eta = 0.02, nthread = 4, nrounds = 1000 )
 
 #
+
+#setwd("C:/Users/Lu000012/Documents/GitHub/APMtools/")
+library(rasterVis)
 xgb6 = raster(xgbname)
 myTheme <- rasterTheme(region=c(brewer.pal(4, "Greys"), colorRamps::matlab.like2(n =10) ))
 rf6 = raster(rfname)
@@ -47,7 +72,7 @@ levelplot(stack(rf6, xgb6, La6), par.setting=myTheme, names.attr = c("Bakrf", "B
 # model validation
 training1 = 1: 6000
 test1 = 8001: 9328
-
+library(ranger)
 asub = df
 vaststring = "road_class|indust"
 xgboost_LUR(asub, max_depth =6, eta =0.02, nthread =4, nrounds = 1000,y_varname= c("NO2"), training = training1, test = test1, grepstring = vaststring)

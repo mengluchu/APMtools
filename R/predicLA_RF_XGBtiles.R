@@ -21,11 +21,13 @@
 
 #' @export
 predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "|road_class_|indus", xgbname, rfname, laname, ntree = 1000,   max_depth = 6, eta = 0.02, nthread = 4, nrounds = 1000, ...){
-
+  predfun <- function(model, data) {
+    v <- predict(model, as.matrix(data ))
+  }
   inde_var = subset_grep(df, paste0(yname,varstring)) #subset variables
   pre_mat3 = subset_grep(inde_var, varstring) # prediction matrix
   # reorder the dataframe!
-  pre_mat3 %>% select (names(rasstack)) -> pre_mat3
+  pre_mat3 %>% dplyr::select (names(rasstack)) -> pre_mat3
   # make sure the nams match!
   stopifnot(all.equal(names(rasstack), names(pre_mat3)))
 
@@ -33,13 +35,6 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "|road_class_|i
   inde_var = na.omit(inde_var)
   formu = as.formula(paste(yname, "~.", sep = ""))
 
-  #xgb
-  #pre_mat3$NO2  = inde_var$NO2
-  df1 = data.table(inde_var, keep.rownames = F)
-  dfmatrix = sparse.model.matrix(formu, data = df1)[, -1]
-  bst <- xgboost(data = dfmatrix, label = inde_var[, yname],  max_depth = max_depth, eta = eta, nthread = nthread, nrounds = nrounds, verbose = 0)
-  sday = predict(rasstack, bst,  fun = predfun)
-  writeRaster(sday, xgbname, overwrite = TRUE )
 
   ##RF
   bst = randomForest(formu, data = inde_var, ntree = ntree, ...)
@@ -50,4 +45,13 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "|road_class_|i
   L_day <- glmnet::cv.glmnet(as.matrix(pre_mat3), inde_var[, yname], type.measure = "mse", standardize = TRUE, alpha = 1, lower.limit = 0)
   sdayL = predict(rasstack, L_day, fun = predfun)
   writeRaster(sdayL, laname, overwrite = TRUE )
+
+  #xgb
+  #pre_mat3$NO2  = inde_var$NO2
+  df1 = data.table(inde_var, keep.rownames = F)
+  dfmatrix = sparse.model.matrix(formu, data = df1)[, -1]
+  bst <- xgboost(data = dfmatrix, label = inde_var[, yname],  max_depth = max_depth, eta = eta, nthread = nthread, nrounds = nrounds, verbose = 0)
+  sday = predict(rasstack, bst,  fun = predfun)
+  writeRaster(sday, xgbname, overwrite = TRUE )
+
 }

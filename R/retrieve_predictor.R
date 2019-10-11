@@ -1,4 +1,4 @@
-#' read predictor values at the point locations, returns a dataframe or save into a csv
+#'@title read predictor values at the point locations, returns a dataframe or save into a csv
 #'@param predictorstack raster stack to read point values from
 #'@param pointdatafile the file contains point locations to be read
 #'@param coordslonlat a vector specify the names of the longitude and latitude variable names.
@@ -13,7 +13,8 @@
 #' proj = "+proj=longlat +datum=WGS84"
 #' retrieve_predictor(lus, bakfile1, c("Lon", "Lat"), proj)}
 
-retrieve_predictor = function(predictorstack, pointdatafile, coordslonlat, proj, csvname= substr(pointdatafile, 30,34))
+
+retrieve_predictor = function(predictorstack, pointdatafile, coordslonlat, proj, csvname= "predictors")
 {
   sploc  = pointdatafile %>%
   st_as_sf(coords = coordslonlat) %>%
