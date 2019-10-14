@@ -35,12 +35,12 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|in
 
   pre_mat3 = na.omit(pre_mat3)
   yvar = df%>% dplyr::select(yname)
-  indep_dep = cbinde(yvar = yvar, pre_mat3)
-
+  indep_dep = data.frame(yvar = yvar, pre_mat3)
+  names(indep_dep)[1]="yvar"
   formu = as.formula(paste(yvar, "~.", sep = ""))
 
   ##RF
-  bst = randomForest(formu, data = indep_dep, ntree = ntree, ...)
+  bst = randomForest(formu, data = indep_dep, ntree = ntree )
   sdayR = predict(rasstack, bst)
   writeRaster(sdayR,rfname , overwrite = TRUE )
 

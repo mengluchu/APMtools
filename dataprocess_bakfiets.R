@@ -53,7 +53,7 @@ names(inde_var) = gsub("RSp", "Rsp", names(inde_var))
 
 
 sr = stack(list.files("/data/lu01/madrid/laea", full.names = T))
-predicLA_RF_XGBtiles(df = inde_var, rasstack = sr, yname = "value_mean", varstring = "|road|temperature|wind|pop|ele|Rsp|rop|OMI|industry", xgbname=xgbname, rfname = rfname, laname = laname, ntree = 1000,   max_depth = 6, eta = 0.02, nthread = 4, nrounds = 1000 )
+predicLA_RF_XGBtiles(df = inde_var, rasstack = sr, yname = "value_mean", varstring = "road|temperature|wind|pop|ele|Rsp|rop|OMI|industry", xgbname=xgbname, rfname = rfname, laname = laname, ntree = 1000,   max_depth = 6, eta = 0.02, nthread = 4, nrounds = 1000 )
 
 #
 
