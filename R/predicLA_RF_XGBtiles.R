@@ -34,7 +34,9 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|in
   stopifnot(all.equal(names(rasstack), names(pre_mat3)))
 
   pre_mat3 = na.omit(pre_mat3)
-  yvar = df%>% dplyr::select(yname)
+  # .$y
+  yvar = df%>% dplyr::select(yname)%>%unlist()
+  #yvar = df%>% .$yname
   indep_dep = data.frame(yvar = yvar, pre_mat3)
   names(indep_dep)[1]="yvar"
   formu = as.formula(paste("yvar", "~.", sep = ""))
