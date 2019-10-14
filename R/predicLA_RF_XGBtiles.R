@@ -42,7 +42,7 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|in
   formu = as.formula(paste("yvar", "~.", sep = ""))
 
   ##RF
-  bst = ranger(formu, data = indep_dep, num.trees = ntree )
+  bst = randomForest(formu, data = indep_dep, ntree = ntree )
   sdayR = predict(rasstack, bst)
   writeRaster(sdayR,rfname , overwrite = TRUE )
 
