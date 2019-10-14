@@ -20,37 +20,40 @@
 #' predicLA_RF_XGBtiles(df, lus, "NO2", xgbname=xgbname, rfname = rfname, laname = laname )}
 
 #' @export
-predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "|road_class_|indus", xgbname, rfname, laname, ntree = 1000,   max_depth = 6, eta = 0.02, nthread = 4, nrounds = 1000, ...){
+predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|indus", xgbname, rfname, laname, ntree = 1000,   max_depth = 6, eta = 0.02, nthread = 4, nrounds = 1000, ...){
   predfun <- function(model, data) {
     v <- predict(model, as.matrix(data ))
   }
-  inde_var = subset_grep(df, paste0(yname,varstring)) #subset variables
-  pre_mat3 = subset_grep(inde_var, varstring) # prediction matrix
+
+  #indep_dep = subset_grep(df, paste0(yname,"|",varstring) # RESPONSE+PREDICTOR matrix
+  pre_mat3 = subset_grep(df, varstring) # prediction matrix
   # reorder the dataframe!
-  pre_mat3 %>% dplyr::select (names(rasstack)) -> pre_mat3
+  pre_mat3 = pre_mat3 %>% dplyr::select (names(rasstack))
+
   # make sure the nams match!
   stopifnot(all.equal(names(rasstack), names(pre_mat3)))
 
   pre_mat3 = na.omit(pre_mat3)
-  inde_var = na.omit(inde_var)
-  formu = as.formula(paste(yname, "~.", sep = ""))
+  yvar = df%>% dplyr::select(yname)
+  indep_dep = cbinde(yvar = yvar, pre_mat3)
 
+  formu = as.formula(paste(yvar, "~.", sep = ""))
 
   ##RF
-  bst = randomForest(formu, data = inde_var, ntree = ntree, ...)
+  bst = randomForest(formu, data = indep_dep, ntree = ntree, ...)
   sdayR = predict(rasstack, bst)
   writeRaster(sdayR,rfname , overwrite = TRUE )
 
   # LA
-  L_day <- glmnet::cv.glmnet(as.matrix(pre_mat3), inde_var[, yname], type.measure = "mse", standardize = TRUE, alpha = 1, lower.limit = 0)
+  L_day <- glmnet::cv.glmnet(as.matrix(pre_mat3),yvar, type.measure = "mse", standardize = TRUE, alpha = 1, lower.limit = 0)
   sdayL = predict(rasstack, L_day, fun = predfun)
   writeRaster(sdayL, laname, overwrite = TRUE )
 
   #xgb
   #pre_mat3$NO2  = inde_var$NO2
-  df1 = data.table(inde_var, keep.rownames = F)
+  df1 = data.table(indep_dep, keep.rownames = F)
   dfmatrix = sparse.model.matrix(formu, data = df1)[, -1]
-  bst <- xgboost(data = dfmatrix, label = inde_var[, yname],  max_depth = max_depth, eta = eta, nthread = nthread, nrounds = nrounds, verbose = 0)
+  bst <- xgboost(data = dfmatrix, label = yvar,  max_depth = max_depth, eta = eta, nthread = nthread, nrounds = nrounds, verbose = 0)
   sday = predict(rasstack, bst,  fun = predfun)
   writeRaster(sday, xgbname, overwrite = TRUE )
 
