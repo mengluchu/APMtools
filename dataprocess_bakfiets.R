@@ -39,8 +39,7 @@ predicLA_RF_XGBtiles(df = df , rasstack = sr, yname = "NO2", varstring = "|road_
 xgbname = "xgbmadridm.tif"
 rfname = "rfmadridm.tif"
 laname = "Lamadridm.tif"
-install_github("mengluchu/APMtools")
-library(APMtools)
+
 data(merged)
 merged = merged%>% na_if( -1)%>%na.omit
 

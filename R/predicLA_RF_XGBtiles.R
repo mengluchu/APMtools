@@ -28,7 +28,8 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|in
   #indep_dep = subset_grep(df, paste0(yname,"|",varstring) # RESPONSE+PREDICTOR matrix
   pre_mat3 = subset_grep(df, varstring) # prediction matrix
   # reorder the dataframe!
-  pre_mat3 = pre_mat3 %>% dplyr::select (names(rasstack))
+  re = names(rasstack)
+  pre_mat3 = pre_mat3 %>% dplyr::select (re)
 
   # make sure the nams match!
   stopifnot(all.equal(names(rasstack), names(pre_mat3)))
@@ -43,6 +44,7 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|in
 
   ##RF
   bst = randomForest(formu, data = indep_dep, ntree = ntree )
+  bst
   sdayR = predict(rasstack, bst)
   writeRaster(sdayR,rfname , overwrite = TRUE )
 
