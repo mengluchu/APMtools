@@ -44,12 +44,13 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|in
 
   ##RF
   bst = randomForest(formu, data = indep_dep, ntree = ntree )
-  bst
+  save(bst, file = "rf_bst.rdata")
   sdayR = predict(rasstack, bst)
   writeRaster(sdayR,rfname , overwrite = TRUE )
 
   # LA
   L_day <- glmnet::cv.glmnet(as.matrix(pre_mat3),yvar, type.measure = "mse", standardize = TRUE, alpha = 1, lower.limit = 0)
+  save(L_day, file = "L_day.rdata")
   sdayL = predict(rasstack, L_day, fun = predfun)
   writeRaster(sdayL, laname, overwrite = TRUE )
 
@@ -58,6 +59,7 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|in
   df1 = data.table(indep_dep, keep.rownames = F)
   dfmatrix = sparse.model.matrix(formu, data = df1)[, -1]
   bst <- xgboost(data = dfmatrix, label = yvar,  max_depth = max_depth, eta = eta, nthread = nthread, nrounds = nrounds, verbose = 0)
+  save(bst, file = "xgboost_bst.rdata")
   sday = predict(rasstack, bst,  fun = predfun)
   writeRaster(sday, xgbname, overwrite = TRUE )
 
