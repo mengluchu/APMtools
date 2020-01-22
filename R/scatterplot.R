@@ -4,7 +4,7 @@
 #' @param fittingmethod the method to fit a line, choosing from the 'stat_smooth' in gglot2, can also be  lm, glm, gam, loess.
 #' @export
 #'
-scatterplot = function(variabledf, y_name, fittingmethod = "lm") {
+scatterplot = function(variabledf, y_name, fittingmethod = "lm", ncol = 5) {
     # quote(y_var)
-    variabledf %>% gather(VAR, predictors, -y_name) %>% ggplot(aes_string(x = "predictors", y = y_name)) + geom_point() + facet_wrap(~VAR, scales = "free") + stat_smooth(method = fittingmethod) + theme_bw()
+    variabledf %>% gather(VAR, predictors, -y_name) %>% ggplot(aes_string(x = "predictors", y = y_name)) + geom_point() + facet_wrap(~VAR, scales = "free", nrow = nrow) + stat_smooth(method = fittingmethod) + theme_bw()
 }
