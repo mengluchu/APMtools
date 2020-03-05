@@ -1,4 +1,5 @@
 #' @title rf, xgb, Brt predictions
+#' @export
 rf_pre = function(variabledf,  numtrees = 2000, mtry = 33, y_varname = c("day_value", "night_value", "value_mean"),   test, training, grepstring = "ROAD|pop|temp|wind|Rsp|OMI|eleva|coast", ...) {
   prenres = paste(y_varname, "|", grepstring, sep = "")
   pre_mat = subset_grep(variabledf[training, ], prenres)
