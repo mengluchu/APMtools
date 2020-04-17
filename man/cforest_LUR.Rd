@@ -4,9 +4,15 @@
 \alias{cforest_LUR}
 \title{Random forest for LUR (using cforest)}
 \usage{
-cforest_LUR(variabledf, vis1 = T, y_varname = c("day_value",
-  "night_value", "value_mean"), training, test,
-  grepstring = "ROAD|pop|temp|wind|Rsp|OMI|eleva|coast", ...)
+cforest_LUR(
+  variabledf,
+  vis1 = T,
+  y_varname = c("day_value", "night_value", "value_mean"),
+  training,
+  test,
+  grepstring = "ROAD|pop|temp|wind|Rsp|OMI|eleva|coast",
+  ...
+)
 }
 \arguments{
 \item{variabledf}{the dataframe containing predictors and dependent variable}

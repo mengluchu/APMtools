@@ -4,10 +4,21 @@
 \alias{predicLA_RF_XGBtiles}
 \title{predict tiles using LA, RF, SGB}
 \usage{
-predicLA_RF_XGBtiles(df, rasstack, yname,
-  varstring = "|road_class_|indus", xgbname, rfname, laname,
-  ntree = 1000, max_depth = 6, eta = 0.02, nthread = 4,
-  nrounds = 1000, ...)
+predicLA_RF_XGBtiles(
+  df,
+  rasstack,
+  yname,
+  varstring = "road_class_|indus",
+  xgbname,
+  rfname,
+  laname,
+  ntree = 1000,
+  max_depth = 6,
+  eta = 0.02,
+  nthread = 4,
+  nrounds = 1000,
+  ...
+)
 }
 \arguments{
 \item{df}{the dataframe for building the model}

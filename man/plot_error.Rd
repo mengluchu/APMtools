@@ -4,9 +4,15 @@
 \alias{plot_error}
 \title{Plot the prediction errors in space}
 \usage{
-plot_error(validation = 0, prediction = 0, geome, err = NA,
-  extremequantil_low = 0.025, extremequantil_high = 0.975,
-  plotraster = T)
+plot_error(
+  validation = 0,
+  prediction = 0,
+  geome,
+  err = NA,
+  extremequantil_low = 0.025,
+  extremequantil_high = 0.975,
+  plotraster = T
+)
 }
 \arguments{
 \item{prediction}{The prediction vector}

@@ -4,9 +4,16 @@
 \alias{RDring_coef}
 \title{Plot coefficients of roadrings of fitting a linear regression model.}
 \usage{
-RDring_coef(variabledf, y_var, Road_varname = "ROAD",
-  number_roadtypes = 3, buffers_in, buffers_out, pop_var = NA,
-  normalize = F)
+RDring_coef(
+  variabledf,
+  y_var,
+  Road_varname = "ROAD",
+  number_roadtypes = 3,
+  buffers_in,
+  buffers_out,
+  pop_var = NA,
+  normalize = F
+)
 }
 \arguments{
 \item{variabledf}{dataframe including predictors and dependent variable}

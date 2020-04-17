@@ -4,8 +4,13 @@
 \alias{retrieve_predictor}
 \title{read predictor values at the point locations, returns a dataframe or save into a csv}
 \usage{
-retrieve_predictor(predictorstack, pointdatafile, coordslonlat, proj,
-  csvname = substr(pointdatafile, 30, 34))
+retrieve_predictor(
+  predictorstack,
+  pointdatafile,
+  coordslonlat,
+  proj,
+  csvname = "predictors"
+)
 }
 \arguments{
 \item{predictorstack}{raster stack to read point values from}

@@ -4,9 +4,17 @@
 \alias{rf_LUR}
 \title{Random forest for LUR (using ranger)}
 \usage{
-rf_LUR(variabledf, vis = F, numtrees = 2000, mtry = 33,
-  y_varname = c("day_value", "night_value", "value_mean"), training,
-  test, grepstring = "ROAD|pop|temp|wind|Rsp|OMI|eleva|coast", ...)
+rf_LUR(
+  variabledf,
+  vis = F,
+  numtrees = 2000,
+  mtry = 33,
+  y_varname = c("day_value", "night_value", "value_mean"),
+  training,
+  test,
+  grepstring = "ROAD|pop|temp|wind|Rsp|OMI|eleva|coast",
+  ...
+)
 }
 \arguments{
 \item{variabledf}{the dataframe containing predictors and dependent variable}

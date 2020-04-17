@@ -4,9 +4,13 @@
 \alias{sampledf}
 \title{devide the data into test and training set, and prepare the dataframe for modeling}
 \usage{
-sampledf(originaldata, fraction = 0.8, country2digit = NA,
+sampledf(
+  originaldata,
+  fraction = 0.8,
+  country2digit = NA,
   grepstring_rm = "ID|LATITUDE|LONGITUDE|ROAD_0|geometry|countryfullname",
-  rm_neg_col = F)
+  rm_neg_col = F
+)
 }
 \arguments{
 \item{originaldata}{original dataframe}

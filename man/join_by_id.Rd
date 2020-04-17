@@ -4,8 +4,13 @@
 \alias{join_by_id}
 \title{Join variables with coordinates to the destination file by ID, so it requires an ID file with coordinates}
 \usage{
-join_by_id(IDfile, coordinatefile, file2merge = merged,
-  varname = "value", newname)
+join_by_id(
+  IDfile,
+  coordinatefile,
+  file2merge = merged,
+  varname = "value",
+  newname
+)
 }
 \arguments{
 \item{IDfile}{sp or dataframe with coordinate and ID that Oliver uses}
