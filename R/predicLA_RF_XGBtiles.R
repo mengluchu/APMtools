@@ -20,7 +20,7 @@
 #' predicLA_RF_XGBtiles(df, lus, "NO2", xgbname=xgbname, rfname = rfname, laname = laname )}
 
 #' @export
-predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|indus", xgbname, rfname, laname, ntree = 1000,   max_depth = 6, eta = 0.02, nthread = 4, nrounds = 1000, ...){
+predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|indus", xgbname, rfname, laname, ntree, mtry, gamma, max_depth , eta , nthread = 4, nrounds, ...){
   predfun <- function(model, data) {
     v <- predict(model, as.matrix(data ))
   }
@@ -43,7 +43,7 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|in
   formu = as.formula(paste("yvar", "~.", sep = ""))
 
   ##RF
-  bst = randomForest(formu, data = indep_dep, ntree = ntree )
+  bst = randomForest(formu, data = indep_dep, ntree = ntree, mtry = mtry )
   save(bst, file = "rf_bst.rdata")
   sdayR = predict(rasstack, bst)
   writeRaster(sdayR,rfname , overwrite = TRUE )
@@ -58,7 +58,7 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring = "road_class_|in
   #pre_mat3$NO2  = inde_var$NO2
   df1 = data.table(indep_dep, keep.rownames = F)
   dfmatrix = sparse.model.matrix(formu, data = df1)[, -1]
-  bst <- xgboost(data = dfmatrix, label = yvar,  max_depth = max_depth, eta = eta, nthread = nthread, nrounds = nrounds, verbose = 0)
+  bst <- xgboost(data = dfmatrix, label = yvar,  max_depth = max_depth, eta = eta, nthread = nthread, gamma = gamma,  nrounds = nrounds, verbose = 0)
   save(bst, file = "xgboost_bst.rdata")
   sday = predict(rasstack, bst,  fun = predfun)
   writeRaster(sday, xgbname, overwrite = TRUE )
