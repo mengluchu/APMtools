@@ -26,10 +26,10 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring=NULL, xgbname, rf
   }
 
   #indep_dep = subset_grep(df, paste0(yname,"|",varstring) # RESPONSE+PREDICTOR matrix
-  pre_mat3 = ifelse(is.null(varstring), df, subset_grep(df, varstring)) # prediction matrix
+  #pre_mat3 = ifelse(is.null(varstring), df, subset_grep(df, varstring)) # prediction matrix
   # reorder the dataframe!
   re = names(rasstack)
-  pre_mat3 = pre_mat3 %>% dplyr::select (re)
+  pre_mat3 = df%>% dplyr::select (re)
 
   # make sure the nams match!
   stopifnot(all.equal(names(rasstack), names(pre_mat3)))
