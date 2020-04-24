@@ -2,7 +2,6 @@
 #' @param df the dataframe for building the model
 #' @param rasstack rasterstack, predictors
 #' @param yname the y variable name
-#' @param varstring the variables to subset (grep style), by default using all the variables
 #' @param xgbname output filename for xgb
 #' @param rfname output filename for rf
 #' @param lanme output filename for LA
@@ -20,13 +19,13 @@
 #' predicLA_RF_XGBtiles(df, lus, "NO2", xgbname=xgbname, rfname = rfname, laname = laname )}
 
 #' @export
-predicLA_RF_XGBtiles <-function(df, rasstack, yname, varstring=NULL, xgbname, rfname, laname, ntree, mtry, gamma, max_depth , eta , nthread = 4, nrounds, ...){
+predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, ntree, mtry, gamma, max_depth , eta , nthread = 4, nrounds, ...){
   predfun <- function(model, data) {
     v <- predict(model, as.matrix(data ))
   }
 
   #indep_dep = subset_grep(df, paste0(yname,"|",varstring) # RESPONSE+PREDICTOR matrix
-  #pre_mat3 = ifelse(is.null(varstring), df, subset_grep(df, varstring)) # prediction matrix
+  #varstring=NULL; pre_mat3 = ifelse(is.null(varstring), df, subset_grep(df, varstring)) # prediction matrix
   # reorder the dataframe!
   re = names(rasstack)
   pre_mat3 = df%>% dplyr::select (re)
