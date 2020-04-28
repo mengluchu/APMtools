@@ -12,7 +12,7 @@
 Lasso = function(variabledf, vis1 = T, alpha = 1, y_varname, training, test, grepstring ) {
     prenres = paste(y_varname, "|", grepstring, sep = "")
     pre_mat_all = subset_grep(variabledf[training, ], prenres)
-    pre_mat = pre_mat_all%<%dplyr::select(-y_varname)
+    pre_mat = pre_mat_all%>%dplyr::select(-y_varname)
 
     pre_mat_tr = pre_mat[training, ]
     pre_mat_test = pre_mat[test, ]
