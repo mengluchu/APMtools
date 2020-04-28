@@ -15,7 +15,7 @@ Lasso = function(variabledf, vis1 = T, alpha = 1, y_varname, training, test, gre
     pre_mat_test = pre_mat[test, ]
     y_tr_value = variabledf[training, y_varname]
     y_test_value = variabledf[test, y_varname]
-
+    print(names(pre_mat_tr))
     cvfit <- glmnet::cv.glmnet(as.matrix(pre_mat_tr), y_tr_value, type.measure = "mse", standardize = TRUE, alpha = alpha, lower.limit = 0)
 
     print(cvfit$lambda.min)
