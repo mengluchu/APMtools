@@ -10,6 +10,8 @@ xgboost_LUR(
   eta = 0.02,
   nthread = 2,
   nrounds = 300,
+  gamma = 1,
+  subsample = 0.7,
   y_varname = c("day_value", "night_value", "value_mean"),
   training,
   test,

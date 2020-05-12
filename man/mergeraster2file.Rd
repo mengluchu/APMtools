@@ -4,12 +4,14 @@
 \alias{mergeraster2file}
 \title{Merge new predictor variables (rasters)}
 \usage{
-mergeraster2file(tomerge, rasterfile, varname)
+mergeraster2file(tomerge, rasterfile, lon_lat_name, varname)
 }
 \arguments{
 \item{tomerge}{the dataframe to merge the raster files to}
 
-\item{rasterfile}{the raster file to merge}
+\item{rasterfile}{the R raster object (raster package) to merge}
+
+\item{lon_lat_name}{a vector of the names of longitude and latitude. Commonly Longitude first and latitude second.}
 
 \item{varname}{the name of the new variable}
 }
@@ -20,5 +22,5 @@ a dataframe with merged variables
 Merge new predictor variables (rasters)
 }
 \examples{
-\donttest{merged = mergeraster2file(merged, 'C:/Users/Lu000012/Documents/files/GLOBAL_LUR/predictor variables/elevation.map', 'elevation')}
+\donttest{merged = mergeraster2file(merged, c("lon","lat"), 'elevation.map', 'elevation')}
 }

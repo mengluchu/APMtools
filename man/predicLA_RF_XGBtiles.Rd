@@ -8,15 +8,16 @@ predicLA_RF_XGBtiles(
   df,
   rasstack,
   yname,
-  varstring = "road_class_|indus",
   xgbname,
   rfname,
   laname,
-  ntree = 1000,
-  max_depth = 6,
-  eta = 0.02,
+  ntree,
+  mtry,
+  gamma,
+  max_depth,
+  eta,
   nthread = 4,
-  nrounds = 1000,
+  nrounds,
   ...
 )
 }
@@ -26,8 +27,6 @@ predicLA_RF_XGBtiles(
 \item{rasstack}{rasterstack, predictors}
 
 \item{yname}{the y variable name}
-
-\item{varstring}{the variables to subset (grep style)}
 
 \item{xgbname}{output filename for xgb}
 
