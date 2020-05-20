@@ -4,7 +4,7 @@
 \alias{scatterplot}
 \title{Plot scatterplot between the dependent variables and all the predictors}
 \usage{
-scatterplot(variabledf, y_name, fittingmethod = "lm", ncol = 5)
+scatterplot(variabledf, y_name, fittingmethod = "lm", n_row = 5)
 }
 \arguments{
 \item{variabledf}{the dataframe containing dependent and independent variables}

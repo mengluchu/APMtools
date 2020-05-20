@@ -12,8 +12,11 @@ error_matrix(validation, prediction)
 \item{validataion}{The validataion vector}
 }
 \value{
-an errormatrix with RMSE, MAE, IQR
+an errormatrix with RMSE, MAE, IQR, relative RMSE, relative MAE, relative IQR, R-squared, Explained Variance
 }
 \description{
 error matrix outputs RMSE, MAE, IQR
+}
+\details{
+R-squared is caluclated as 1- mse(e)/var(y), which is the same as 1- ss(e)/ss(y). The explained variance is calculated as 1 - var(e)/var(y). For a machine learning technique, the error does not have zero mean. This means the R-squared indicates a reduction in sum of squares of errors (ss), instead of variance. Therefore, an additional indicator, epxlained variance is calculated.
 }
