@@ -93,10 +93,10 @@ ls("package:APMtools")
 #### Data 
 "DENL_new", "merged", "merged_nightlight", "global_annal", and "countrywithppm" are data files. 
 
-* "DENL_new" are stations of Germany and Netherlands. 
-* "merged" is the data file for the Global mapping paper published on Environmental International. 
-* "merged_nightlight" additionally added a nightlight predictor variable to "merged". 
-* "countrywithppm" tags the countries measuring NO2 withing other units than ug/m3. 
+* "DENL_new": station measurements and predictors of Germany and Netherlands. 
+* "merged":  data file for the Global mapping paper published on Environmental International. 
+* "merged_nightlight": additionally adds a nightlight predictor variable to "merged". 
+* "countrywithppm": tags the countries measuring NO2 withing other units than ug/m3. 
 
 #### General functions 
 
