@@ -90,6 +90,35 @@ ls("package:APMtools")
 #> [31] "subset_grep"          "univar_rsq"           "xgb_pre"             
 #> [34] "xgboost_imp"          "xgboost_LUR"
 ```
+#### Data 
+"DENL_new", "merged", "merged_nightlight", "global_annal", and "countrywithppm" are data files. 
+
+* "DENL_new" are stations of Germany and Netherlands. 
+* "merged" is the data file for the Global mapping paper published on Environmental International. 
+* "merged_nightlight" additionally added a nightlight predictor variable to "merged". 
+* "countrywithppm" tags the countries measuring NO2 withing other units than ug/m3. 
+
+#### General functions 
+
+The package include general functions to simplify the coding, for example the **scatterplot** function, you can just provide it the name of the response, and it will plot the scatterplot between the response and the other variables.
+
+``` r
+global_annual %>% ungroup%>% 
+dplyr::select(matches("road_class_1|value")) %>% 
+scatterplot(y_name = "value_mean", fittingmethod = "gam") 
+```
+![](https://i.imgur.com/66wlCO2.png)
+
+#### More specific functions for air pollution mapping
+
+APMtools also includes some specific functions for air pollution mapping task, for example, we have 5 road types separated from open streetmap, the road type 3-5 are all small roads, we want to form a new road type that aggregate road types 3-5. 
+The **merge_roads** function does this for you, and you can choose to keep the original road types or only the new road type. It is currently subject to the variable name, so for this function to work, your variable names need to be formed in a way like "_number_", for example "road_1_" to represent road type 1. This is the same for the function **create ring**, which calculate the total road length subtracting from the road length of the previous buffer.  
+
+```r
+merge_roads(global_annual, c(1,2,3), keep = F)
+``` 
+
+#### Wraps of ML algorithms to facilitate boostrapping and method comparison
 
 Brt_xx, xgboost_xx, ctree_xx, Lasso_xx, and rf_xx are gives important variables (method_imp), predictions(method_pre), and error matrices (method_LUR). 
 For example, boostrapping variable importance calculation using the xgboost_imp.
@@ -178,12 +207,4 @@ Several matrices are calculated, including R-squared, RMSE, IQR, MAE (mean absol
 
 ![cross-validation plot](example_matrix.png)
 
-The package include several general functions, for example the scatterplot function, you can just provide it the name of the response, and it will plot the scatterplot between the response and the other variables.
-``` r
-global_annual %>% ungroup%>% 
-dplyr::select(matches("road_class_1|value")) %>% 
-scatterplot(y_name = "value_mean", fittingmethod = "gam") 
-```
 
-![](https://i.imgur.com/66wlCO2.png)
- 
