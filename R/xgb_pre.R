@@ -2,7 +2,7 @@
 #' @export
 
 
-xgb_pre = function(variabledf, max_depth = 4, eta = 0.02, nthread = 2,gamma=0, nrounds = 300, subsample = 0.7, y_varname = c("day_value", "night_value", "value_mean"), training , test ,   grepstring = "ROAD|pop|temp|wind|Rsp|OMI|eleva|coast", ...) {
+xgb_pre = function(variabledf, max_depth = 4, eta = 0.02, nthread = 2,gamma=0, nrounds = 300, subsample = 0.7, y_varname = c("day_value", "night_value", "value_mean"), training , test ,   grepstring , ...) {
   prenres = paste(y_varname, "|", grepstring, sep = "")
   sub_mat = subset_grep(variabledf, prenres)
 

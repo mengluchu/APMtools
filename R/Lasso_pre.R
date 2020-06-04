@@ -1,7 +1,7 @@
 #' @title Lasso predictions
 #' @export
 
-Lasso_pre = function(variabledf,  alpha = 1, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring = "ROAD|pop|temp|wind|Rsp|OMI|eleva|coast") {
+Lasso_pre = function(variabledf,  alpha = 1, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring ) {
   prenres = paste(y_varname, "|", grepstring, sep = "")
   pre_mat_all = subset_grep(variabledf, prenres)
   pre_mat = pre_mat_all%>%dplyr::select(-y_varname)

@@ -7,7 +7,7 @@
 #' \donttest{merge_roads(inde_var,c(1,2))}
 #' @export
 
-merge_roads = function(inde_var, classvec, keep = F) {
+merge_roads = function(data.frame(inde_var), classvec, keep = F) {
     a0 = 0
     for (i in 1:length(classvec)) {
         a = paste("_", classvec[i], "_", sep = "")

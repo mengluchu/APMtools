@@ -9,29 +9,29 @@
 #' @export
 
 
-cforest_LUR = function(variabledf, vis1 = T, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring = "ROAD|pop|temp|wind|Rsp|OMI|eleva|coast", ...) {
+cforest_LUR = function(variabledf, vis1 = T, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring, ...) {
     prenres = paste(y_varname, "|", grepstring, sep = "")
     pre_mat = subset_grep(variabledf[training, ], prenres)
-    
-    
+
+
     y_test = variabledf[test, y_varname]
     x_test = variabledf[test, ]
-    
+
     formu = as.formula(paste(y_varname, "~.", sep = ""))
-    
+
     rf3 <- cforest(formu, data = pre_mat)
-    
+
     df = data.frame(imp_val = varimp(rf3))
     if (vis1) {
-        imp_plot = ggplot(df, aes(x = reorder(rownames(df), imp_val), y = imp_val, fill = imp_val)) + geom_bar(stat = "identity", position = "dodge") + coord_flip() + ylab("Variable Importance") + xlab("") + ggtitle(paste("Information Value Summary", 
+        imp_plot = ggplot(df, aes(x = reorder(rownames(df), imp_val), y = imp_val, fill = imp_val)) + geom_bar(stat = "identity", position = "dodge") + coord_flip() + ylab("Variable Importance") + xlab("") + ggtitle(paste("Information Value Summary",
             y_varname, sep = ": ")) + guides(fill = F) + scale_fill_gradient(low = "red", high = "blue")
-        
+
         print(imp_plot)
     }
     pre_rf <- predictions(predict(rf3, data = x_test))
     # rf_residual <- pre_rf - rdf_test$NO2
-    
+
     return(error_matrix(y_test, pre_rf))
-    
-    
+
+
 }
