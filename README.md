@@ -9,27 +9,7 @@ install_github("mengluchu/APMtools")
 ```
 
 ### Data
-The APMtools include a dataset for global annual NO2 concentration, and the predictors we calculated at each station location.
-The variables are: 
-
-Measurements:
-
-* value_mean: annual mean $NO_2$ ($mg/m^3$). 
-
-Predictors (all together 90):
-* road_class_XX_size: road lenght within a buffer with radius "size" of type XX. ROAD_1: highway, ROAD_2: primary, ROAD_3: secondary, ROAD_4: tertiary, ROAD_5: unpaved   
-* industry_size: Industrial area within a buffer with radius "size".   
-* trop_mean: TROPOMI averaged over Feb 2018 - Jan 2019.    
-* temperature_2m_m: monthly mean temperature at 2m height of month "m".  
-* wind_speed_10m_m:monthly mean wind speed at 2m height of month "m".  
-* poppulation_1000/ 3000 /5000: population 1, 3, 5 km resolution.  
-* Rsp: Surface remote sensing and chemical transport model product (only for 2012).  
-* OMI_mean_filt: OMI column density, 2017 annual average.    
-* nightlight_size: nightlight VIIRS data in original resolution (500 m) and various buffer sizes. 
-
-Other:
-
-* country: 2-digit country code
+The APMtools include a dataset **global_annual** for global annual NO2 concentration, and the predictors we calculated at each station location.
 
 ``` r
 library(APMtools) 
@@ -68,6 +48,28 @@ names(global_annual)
 #> [91] "wind_speed_10m_8"  "wind_speed_10m_9"  "value_mean"       
 #> [94] "country"
 ```
+The variables are: 
+
+Measurements:
+
+* value_mean: annual mean $NO_2$ ($mg/m^3$). 
+
+Predictors (all together 90):
+* road_class_XX_size: road lenght within a buffer with radius "size" of type XX. ROAD_1: highway, ROAD_2: primary, ROAD_3: secondary, ROAD_4: tertiary, ROAD_5: unpaved   
+* industry_size: Industrial area within a buffer with radius "size".   
+* trop_mean: TROPOMI averaged over Feb 2018 - Jan 2019.    
+* temperature_2m_m: monthly mean temperature at 2m height of month "m".  
+* wind_speed_10m_m:monthly mean wind speed at 2m height of month "m".  
+* poppulation_1000/ 3000 /5000: population 1, 3, 5 km resolution.  
+* Rsp: Surface remote sensing and chemical transport model product (only for 2012).  
+* OMI_mean_filt: OMI column density, 2017 annual average.    
+* nightlight_size: nightlight VIIRS data in original resolution (500 m) and various buffer sizes. 
+
+Other:
+
+* country: 2-digit country code
+
+
  
 ### Functions
 
@@ -172,4 +174,6 @@ crossvali =  function(n,df, y_var) {
 } 
 lapply(1:20, df = merged, y_var = y_var,crossvali) # 20-times bootstrapped cross-validation 
 ```
- 
+Several matrices are calculated, including R-squared, RMSE, IQR, MAE (mean absolute error), Relative RMSE, Relative IQR, Relative MAE, and explained variance. Please refer to the package documentation for the details of how they are calculated. 
+
+![cross-validation plot](example_matrix.png)
