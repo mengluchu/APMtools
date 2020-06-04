@@ -90,7 +90,7 @@ ls("package:APMtools")
 #> [31] "subset_grep"          "univar_rsq"           "xgb_pre"             
 #> [34] "xgboost_imp"          "xgboost_LUR"
 ```
- 
+
 Brt_xx, xgboost_xx, ctree_xx, Lasso_xx, and rf_xx are gives important variables (method_imp), predictions(method_pre), and error matrices (method_LUR). 
 For example, boostrapping variable importance calculation using the xgboost_imp.
 
@@ -177,3 +177,14 @@ lapply(1:20, df = merged, y_var = y_var,crossvali) # 20-times bootstrapped cross
 Several matrices are calculated, including R-squared, RMSE, IQR, MAE (mean absolute error), Relative RMSE, Relative IQR, Relative MAE, and explained variance. Please refer to the package documentation for the details of how they are calculated. 
 
 ![cross-validation plot](example_matrix.png)
+
+The package also include general functions, for example the scatterplot function, you can just provide it the name of the response, and it will plot the scatterplot between the response and the other variables.
+``` r
+global_annual %>% ungroup%>% 
+dplyr::select(matches("road_class_1|value")) %>% 
+scatterplot(y_name = "value_mean", fittingmethod = "gam") 
+```
+
+![](https://i.imgur.com/66wlCO2.png)
+
+<sup>Created on 2020-06-04 by the [reprex package](https://reprex.tidyverse.org) (v0.3.0)</sup>
