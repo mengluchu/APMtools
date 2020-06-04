@@ -7,10 +7,11 @@
 #' \donttest{merge_roads(inde_var,c(1,2))}
 #' @export
 
-merge_roads = function(data.frame(inde_var), classvec, keep = F) {
+merge_roads = function(inde_var, classvec, keep = F) {
     a0 = 0
     for (i in 1:length(classvec)) {
         a = paste("_", classvec[i], "_", sep = "")
+        inde_var=data.frame(inde_var)
         r = inde_var[, which(grepl(a, names(inde_var)))]
         a0 = r + a0
 
