@@ -14,20 +14,20 @@ RoxygenNote: 7.1.0
 StageInstall: no
 Imports: 
   dplyr, 
-  ggplot2, 
+  tidyr,
+  reshape2,
+  data.table, 
+  Matrix,
+  ggplot2,
+  rasterVis,
   sp, 
   raster, 
-  rasterVis,
   glmnet, 
   ranger, 
   gbm, 
   xgboost, 
-  party, 
-  tidyr, 
-  reshape2,
+  party,  
   countrycode, 
-  data.table, 
-  Matrix, 
   stats 
 Suggests:
   GGally,
