@@ -11,7 +11,7 @@ merge_roads = function(inde_var, classvec, keep = F) {
     a0 = 0
     for (i in 1:length(classvec)) {
         a = paste("_", classvec[i], "_", sep = "")
-        r = subset_grep(inde_var, a)
+        r = subset_grep(inde_var, a)%>%data.frame()
         a0 = r + a0
 
         if (keep == F)
