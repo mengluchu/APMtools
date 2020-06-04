@@ -119,9 +119,8 @@ merge_roads(global_annual, c(1,2,3), keep = F)
 ``` 
 
 #### Wraps of ML algorithms to facilitate boostrapping and method comparison
-
-Brt_xx, xgboost_xx, ctree_xx, Lasso_xx, and rf_xx are gives important variables (method_imp), predictions(method_pre), and error matrices (method_LUR). 
-For example, boostrapping variable importance calculation using the xgboost_imp.
+Commonly, we need to repeatedly apply models, such as in bootstrapping, cross-validation, and make comparisons between different model settings and method. It is convenient to wrap the model application process into functions. In APMtools, wrapping functions are provided for Gradient boosting machine, random forest, XGBoost, and Lasso: 
+Brt_xx, xgboost_xx, ctree_xx, Lasso_xx, and rf_xx. They can give important variables (method_imp), predictions(method_pre), and error matrices (method_LUR). For example, boostrapping variable importance calculation using the xgboost_imp. One line of command select predictor variables to use and gives you variable importance
 
 ``` r 
 Impor_val =  function(n,df, method , y_var, varstring  ) {
@@ -187,7 +186,7 @@ apply(Vxb, 1, median) # you can of course sort and visualize.
 #>      3.280105e-03      1.591655e-03      1.634610e-03      1.584987e-03
 ```
 
-And cross-validation using rf_LUR, xgboost_LUR, Lasso_LUR
+And cross-validation using rf_LUR, xgboost_LUR, Lasso. One line of command gives you an error matrix. 
 
 ```r
 crossvali =  function(n,df, y_var) {
@@ -208,3 +207,4 @@ Several matrices are calculated, including R-squared, RMSE, IQR, MAE (mean absol
 ![cross-validation plot](example_matrix.png)
 
 
+Give it a try!
