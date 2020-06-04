@@ -1,6 +1,6 @@
 # APMtools
 
-R package providing tools to streamline and facilitate air pollution mapping using statistical methods. The package also includes a global dataset. 
+R package providing datasets for global air pollution modelling and tools to streamline and facilitate air pollution mapping using statistical methods.   
 
 
 ### Installing
