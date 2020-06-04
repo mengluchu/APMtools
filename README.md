@@ -178,7 +178,7 @@ Several matrices are calculated, including R-squared, RMSE, IQR, MAE (mean absol
 
 ![cross-validation plot](example_matrix.png)
 
-The package also include general functions, for example the scatterplot function, you can just provide it the name of the response, and it will plot the scatterplot between the response and the other variables.
+The package include several general functions, for example the scatterplot function, you can just provide it the name of the response, and it will plot the scatterplot between the response and the other variables.
 ``` r
 global_annual %>% ungroup%>% 
 dplyr::select(matches("road_class_1|value")) %>% 
@@ -186,5 +186,4 @@ scatterplot(y_name = "value_mean", fittingmethod = "gam")
 ```
 
 ![](https://i.imgur.com/66wlCO2.png)
-
-<sup>Created on 2020-06-04 by the [reprex package](https://reprex.tidyverse.org) (v0.3.0)</sup>
+ 
