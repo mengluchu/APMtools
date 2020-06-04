@@ -15,7 +15,7 @@ xgboost_LUR(
   y_varname = c("day_value", "night_value", "value_mean"),
   training,
   test,
-  grepstring = "ROAD|pop|temp|wind|Rsp|OMI|eleva|coast",
+  grepstring = "|",
   ...
 )
 }

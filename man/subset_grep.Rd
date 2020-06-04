@@ -9,7 +9,7 @@ subset_grep(df, grepstring)
 \arguments{
 \item{df}{the dataframe to subset}
 
-\item{grepstring}{the namestring of the colomns to grab, greplstyle}
+\item{grepstring}{the namestring of the colomns to grab, greplstyle. This function is actually the same as dplyr::select(matches()).}
 }
 \description{
 subset by grep

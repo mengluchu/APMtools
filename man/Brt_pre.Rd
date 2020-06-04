@@ -14,7 +14,7 @@ Brt_pre(
   shrinkage = 0.01,
   training,
   test,
-  grepstring = "ROAD|pop|temp|wind|Rsp|OMI|eleva|coast",
+  grepstring,
   ...
 )
 }
