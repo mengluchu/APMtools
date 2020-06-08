@@ -1,5 +1,4 @@
 #' Random forest for LUR (using cforest)
-
 #' @param  variabledf the dataframe containing predictors and dependent variable
 #' @param y_varname  name of the dependent variable.
 #' @param training the index for the rows used for training.
