@@ -47,6 +47,8 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, n
   sdayR = predict(rasstack, bst)
   writeRaster(sdayR,rfname , overwrite = TRUE )
 
+
+
   # LA
   L_day <- glmnet::cv.glmnet(as.matrix(pre_mat3),yvar, type.measure = "mse", standardize = TRUE, alpha = 1, lower.limit = 0)
   save(L_day, file = "L_day.rdata")
