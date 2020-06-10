@@ -4,7 +4,7 @@
 \alias{prediction_with_pp_La}
 \title{Aggregate random forest using lasso}
 \usage{
-prediction_with_pp_La(rfmodel, trainingXY, trainingY, testingXY)
+prediction_with_pp_La(rfmodel, trainingXY, trainingY, testingX)
 }
 \arguments{
 \item{rfmodel}{ranger model}
@@ -13,7 +13,7 @@ prediction_with_pp_La(rfmodel, trainingXY, trainingY, testingXY)
 
 \item{trainingY}{training response vection}
 
-\item{testingXY}{testing matrix, with same response and predictor names as in the rfmodel}
+\item{testingX}{testing matrix, with same response presented in the rfmodel}
 }
 \description{
 Aggregate random forest using lasso
