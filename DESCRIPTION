@@ -14,9 +14,7 @@ RoxygenNote: 7.1.0
 StageInstall: no
 Imports: 
   dplyr, 
-  tidyr,
-  data.table, 
-  stats 
+  data.table
 Suggests:
   GGally,
   caret, 
@@ -32,4 +30,6 @@ Suggests:
   randomForest,
   party,
   countrycode,
-  Matrix
+  Matrix,
+  tidyr,
+  stats
