@@ -33,7 +33,5 @@ xgboost_LUR = function(variabledf, max_depth = 4, eta = 0.02, nthread = 2, xgb_l
     dfmatrix_test = as.matrix(x_test)
     xgbpre = predict(bst, dfmatrix_test)
 
-    importance <- xgb.importance(feature_names = colnames(dfmatrix), model = bst)
-
     return(error_matrix(y_test, xgbpre))
 }
