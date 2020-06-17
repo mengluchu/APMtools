@@ -9,6 +9,7 @@ xgboost_LUR(
   max_depth = 4,
   eta = 0.02,
   nthread = 2,
+  xgb_lambda = 0.002,
   nrounds = 300,
   gamma = 1,
   subsample = 0.7,
