@@ -15,7 +15,6 @@ StageInstall: no
 Imports: 
   dplyr, 
   tidyr,
-  reshape2,
   data.table, 
   Matrix,
   ggplot2,
