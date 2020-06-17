@@ -13,11 +13,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 StageInstall: no
 Imports: 
-Suggests:
-  GGally,
-  caret, 
-  gstat, 
-  htmlwidgets,
+  dplyr, 
+  data.table,
   xgboost,
   ggplot2, 
   sp, 
@@ -30,6 +27,10 @@ Suggests:
   countrycode,
   Matrix,
   tidyr,
-  stats,
-  dplyr, 
-  data.table
+  stats
+Suggests:
+  GGally,
+  gstat, 
+  htmlwidgets,
+
+   
