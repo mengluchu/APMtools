@@ -17,6 +17,14 @@ Imports:
   tidyr,
   data.table, 
   Matrix,
+  countrycode, 
+  stats 
+Suggests:
+  GGally,
+  caret, 
+  gstat, 
+  htmlwidgets,
+  xgboost,
   ggplot2, 
   sp, 
   raster, 
@@ -24,12 +32,4 @@ Imports:
   ranger, 
   gbm, 
   randomForest,
-  xgboost, 
-  party,  
-  countrycode, 
-  stats 
-Suggests:
-  GGally,
-  caret, 
-  gstat, 
-  htmlwidgets 
+  party,
