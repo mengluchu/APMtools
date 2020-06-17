@@ -23,6 +23,7 @@ Imports:
   glmnet, 
   ranger, 
   gbm, 
+  randomForest,
   xgboost, 
   party,  
   countrycode, 
