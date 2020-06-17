@@ -2,7 +2,7 @@
 #' @export
 
 
-xgb_pre = function(variabledf, max_depth = 4, eta = 0.02, nthread = 2,gamma=0, nrounds = 300, subsample = 0.7, y_varname = c("day_value", "night_value", "value_mean"), training , test ,   grepstring , ...) {
+xgb_pre = function(variabledf, max_depth = 4, eta = 0.02, nthread = 2,gamma=0, xgb_lambda, nrounds = 300, subsample = 0.7, y_varname = c("day_value", "night_value", "value_mean"), training , test ,   grepstring , ...) {
   prenres = paste(y_varname, "|", grepstring, sep = "")
   sub_mat = subset_grep(variabledf, prenres)
 
@@ -11,13 +11,10 @@ xgb_pre = function(variabledf, max_depth = 4, eta = 0.02, nthread = 2,gamma=0, n
 
   x_test = sub_mat[test, ]
 
-  df1 = data.table(pre_mat, keep.rownames = F)
-  formu = as.formula(paste(y_varname, "~.", sep = ""))
-  dfmatrix = sparse.model.matrix(formu, data = df1)[, -1]
+  dfmatrix = as.matrix(pre_mat)
   outputvec = variabledf[training, y_varname]
-  bst <- xgboost(data = dfmatrix, label = outputvec, gamma = gamma, max_depth = max_depth, eta = eta,  subsample = subsample,thread = nthread, nrounds = nrounds, verbose = 0)
+  bst <- xgboost(data = dfmatrix, label = outputvec, gamma= gamma, max_depth = max_depth, lambda = xgb_lambda, eta = eta,  subsample = subsample, nthread = nthread, nrounds = nrounds, verbose = 0)
   print(bst)
-  df_test = data.table(x_test, keep.rownames = F)
-  dfmatrix_test = sparse.model.matrix(formu, data = df_test)[, -1]
-  xgbpre = predict(bst, dfmatrix_test)
+  df_test = as.matrix(x_test)
+  predict(bst, df_test)
 }

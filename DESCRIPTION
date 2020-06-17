@@ -13,11 +13,16 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 StageInstall: no
 Imports: 
-  dplyr, 
+  dplyr
+Suggests:
+  GGally,
+  gstat, 
+  sp,
+  Matrix,
+  htmlwidgets,
   data.table,
   xgboost,
   ggplot2, 
-  sp, 
   raster, 
   glmnet, 
   ranger, 
@@ -25,12 +30,7 @@ Imports:
   randomForest,
   party,
   countrycode,
-  Matrix,
   tidyr,
   stats
-Suggests:
-  GGally,
-  gstat, 
-  htmlwidgets,
 
    

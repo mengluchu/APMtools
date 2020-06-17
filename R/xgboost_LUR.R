@@ -19,18 +19,18 @@ xgboost_LUR = function(variabledf, max_depth = 4, eta = 0.02, nthread = 2, xgb_l
     y_test = sub_mat[test, y_varname]
 
 
-    df1 = data.table(pre_mat, keep.rownames = F)
-    formu = as.formula(paste(y_varname, "~.", sep = ""))
-    dfmatrix = sparse.model.matrix(formu, data = df1)[, -1]
-
+    #df1 = data.table(pre_mat, keep.rownames = F)
+    #formu = as.formula(paste(y_varname, "~.", sep = ""))
+    #dfmatrix = sparse.model.matrix(formu, data = df1)[, -1]
+    dfmatrix = as.matrix(pre_mat)
     outputvec = variabledf[training, y_varname]
     bst <- xgboost(data = dfmatrix, label = outputvec, gamma= gamma, max_depth = max_depth, lambda = xgb_lambda, eta = eta,  subsample = subsample, nthread = nthread, nrounds = nrounds, verbose = 0)
 
-    df_test = data.table(x_test, keep.rownames = F)
+    #df_test = data.table(x_test, keep.rownames = F)
 
-    dfmatrix_test = sparse.model.matrix(formu, data = df_test)[, -1]
+    #dfmatrix_test = sparse.model.matrix(formu, data = df_test)[, -1]
 
-
+    dfmatrix_test = as.matrix(x_test)
     xgbpre = predict(bst, dfmatrix_test)
 
     importance <- xgb.importance(feature_names = colnames(dfmatrix), model = bst)
