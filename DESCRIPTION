@@ -13,8 +13,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 StageInstall: no
 Imports: 
-  dplyr, 
-  data.table
+  
 Suggests:
   GGally,
   caret, 
@@ -32,4 +31,6 @@ Suggests:
   countrycode,
   Matrix,
   tidyr,
-  stats
+  stats,
+  dplyr, 
+  data.table
