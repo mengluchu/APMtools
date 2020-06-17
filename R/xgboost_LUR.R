@@ -8,30 +8,18 @@
 #' @export
 
 
-xgboost_LUR = function(variabledf, max_depth = 4, eta = 0.02, nthread = 2, xgb_lambda=0.002, nrounds = 300, gamma = 1, subsample = 0.7, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring = "|", ...) {
-    prenres = paste(y_varname, "|", grepstring, sep = "")
-    sub_mat = subset_grep(variabledf, prenres)
+xgboost_LUR = function(variabledf, max_depth = 4, eta = 0.02, nthread = 2, xgb_lambda=0.002, nrounds = 300, gamma = 1, subsample = 0.7, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring, ...) {
 
-    pre_mat = sub_mat[training, ]
-    y_train = sub_mat[training, y_varname]
-
-    x_test = sub_mat[test, ]
-    y_test = sub_mat[test, y_varname]
-
-
-    #df1 = data.table(pre_mat, keep.rownames = F)
-    #formu = as.formula(paste(y_varname, "~.", sep = ""))
-    #dfmatrix = sparse.model.matrix(formu, data = df1)[, -1]
-    dfmatrix = as.matrix(pre_mat)
+    pre_mat =  subset_grep(variabledf, grepstring )%>%dplyr::select(-y_varname)
+    x_train = pre_mat[training,]
+    y_train = variabledf[training, y_varname]
+    x_test = pre_mat[test, ]
+    y_test = variabledf[test, y_varname]
+    dfmatrix = as.matrix(x_train)
     outputvec = variabledf[training, y_varname]
-    bst <- xgboost(data = dfmatrix, label = outputvec, gamma= gamma, max_depth = max_depth, lambda = xgb_lambda, eta = eta,  subsample = subsample, nthread = nthread, nrounds = nrounds, verbose = 0)
 
-    #df_test = data.table(x_test, keep.rownames = F)
-
-    #dfmatrix_test = sparse.model.matrix(formu, data = df_test)[, -1]
-
+    bst <- xgboost(data = dfmatrix, label = outputvec, max_depth =max_depth, gamma=gamma, eta =eta, nthread = nthread, lambda = xgb_lambda, nrounds =nrounds,verbose = 0)
     dfmatrix_test = as.matrix(x_test)
     xgbpre = predict(bst, dfmatrix_test)
-
-    return(error_matrix(y_test, xgbpre))
+    error_matrix(y_test, xgbpre)
 }
