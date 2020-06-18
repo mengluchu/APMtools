@@ -10,6 +10,7 @@ xgboost_imp(
   eta = 0.02,
   gamma = 0,
   nthread = 2,
+  xgb_lambda = 0.001,
   nrounds = 300,
   subsample = 0.7,
   y_varname = c("day_value", "night_value", "value_mean"),

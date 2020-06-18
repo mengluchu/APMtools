@@ -16,7 +16,7 @@ xgboost_LUR(
   y_varname = c("day_value", "night_value", "value_mean"),
   training,
   test,
-  grepstring = "|",
+  grepstring,
   ...
 )
 }

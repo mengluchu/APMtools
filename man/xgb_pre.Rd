@@ -10,6 +10,7 @@ xgb_pre(
   eta = 0.02,
   nthread = 2,
   gamma = 0,
+  xgb_lambda,
   nrounds = 300,
   subsample = 0.7,
   y_varname = c("day_value", "night_value", "value_mean"),
