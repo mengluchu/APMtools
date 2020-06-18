@@ -4,7 +4,20 @@
 \alias{xgb_stack}
 \title{xgb predictions}
 \usage{
-xgb_stack(sr, df_var, y_var, xgbname = "xgb.tif")
+xgb_stack(
+  sr,
+  df_var,
+  y_var,
+  xgbname = "xgb.tif",
+  max_depth = 5,
+  eta = 0.003,
+  nthread = 32,
+  gamma = 1,
+  nrounds = 1650,
+  verbose = 0,
+  xgb_lambda = 1,
+  xgb_alpha = 0.02
+)
 }
 \arguments{
 \item{sr}{raster stack of predictors}

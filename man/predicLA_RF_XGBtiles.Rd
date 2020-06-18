@@ -16,7 +16,8 @@ predicLA_RF_XGBtiles(
   gamma,
   max_depth,
   eta,
-  nthread = 4,
+  xgb_lambda = 1,
+  xgb_alpha = 0.02,
   nrounds,
   ...
 )

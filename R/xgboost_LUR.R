@@ -8,7 +8,7 @@
 #' @export
 
 
-xgboost_LUR = function(variabledf, max_depth = 4, eta = 0.02, nthread = 2, xgb_lambda=0.002, nrounds = 300, gamma = 1, subsample = 0.7, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring, ...) {
+xgboost_LUR = function(variabledf, max_depth = 4, eta = 0.02,  xgb_lambda=1,xgb_alpha = 0.02, nrounds = 300, gamma = 1, subsample = 0.7, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring, ...) {
 
     pre_mat =  subset_grep(variabledf, grepstring )%>%dplyr::select(-y_varname)
     x_train = pre_mat[training,]
@@ -18,7 +18,7 @@ xgboost_LUR = function(variabledf, max_depth = 4, eta = 0.02, nthread = 2, xgb_l
     dfmatrix = as.matrix(x_train)
     outputvec = variabledf[training, y_varname]
 
-    bst <- xgboost(data = dfmatrix, label = outputvec, max_depth =max_depth, gamma=gamma, eta =eta, nthread = nthread, lambda = xgb_lambda, nrounds =nrounds,verbose = 0)
+    bst <- xgboost(data = dfmatrix, label = outputvec, max_depth =max_depth, gamma=gamma, eta =eta,  lambda = xgb_lambda, alpha = xgb_alpha, nrounds =nrounds,verbose = 0)
     dfmatrix_test = as.matrix(x_test)
     xgbpre = predict(bst, dfmatrix_test)
     error_matrix(y_test, xgbpre)
