@@ -27,4 +27,4 @@ xgb_stack = function(sr, df_var, y_var, xgbname= "xgb.tif",max_depth = 5,
     v <- predict(model, as.matrix(data))
   }
   b= predict(sr, bst, fun = predfun)
-  writeRaster(b, filename =  xgbname)}
+  writeRaster(b, filename =  xgbname, overwrite=TRUE)}
