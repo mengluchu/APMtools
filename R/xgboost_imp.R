@@ -16,7 +16,7 @@ xgboost_imp = function(variabledf, max_depth = 4, eta = 0.02, gamma=0,  xgb_lamb
     V3 = V3[, c(1, 2)]
 
     # xgboost return different number of features.
-    allfeature = data.frame(Feature = names(sub_matx), Gain = 0)
+    allfeature = data.frame(Feature = names(pre_mat), Gain = 0)
 
     m = merge(allfeature, V3, "Feature", all.x = T)
     rownames(m) = m$Feature
