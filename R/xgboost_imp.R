@@ -7,9 +7,8 @@ xgboost_imp = function(variabledf, max_depth = 4, eta = 0.02, gamma=0,  xgb_lamb
     x_test = pre_mat[test, ]
     y_test = variabledf[test, y_varname]
     dfmatrix = as.matrix(x_train)
-    outputvec = variabledf[training, y_varname]
 
-    bst <- xgboost(data = dfmatrix, label = outputvec, gamma= gamma, max_depth = max_depth, lambda = xgb_lambda, alpha = xgb_alpha,eta = eta,  subsample = subsample, nrounds = nrounds, verbose = 0)
+    bst <- xgboost(data = dfmatrix, label = y_train, gamma= gamma, max_depth = max_depth, lambda = xgb_lambda, alpha = xgb_alpha,eta = eta,  subsample = subsample, nrounds = nrounds, verbose = 0)
 
    importance <- xgb.importance(feature_names = names(pre_mat), model = bst)
 
