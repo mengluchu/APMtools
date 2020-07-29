@@ -8,7 +8,7 @@
 #' @export
 #'
 xgb_stack = function(sr, df_var, y_var, xgbname= "xgb.tif",max_depth = 5,
-                     eta = 0.003, nthread = 32, gamma = 1, nrounds = 1650,
+                     eta = 0.003 , gamma = 1, nrounds = 1650,
                      verbose = 0, xgb_lambda = 1, xgb_alpha = 0.02){
   re = names(sr)
   pre_mat3 = df_var %>% dplyr::select(re)
@@ -21,7 +21,7 @@ xgb_stack = function(sr, df_var, y_var, xgbname= "xgb.tif",max_depth = 5,
   #dfmatrix = sparse.model.matrix(formu, data = df1) #seems have to drop na this way
   dfmatrix =  as.matrix(pre_mat3)
   bst <- xgboost(data = dfmatrix, label = yvar, max_depth = max_depth,
-                 eta = eta, nthread = nthread, gamma = gamma, nrounds = nrounds,
+                 eta = eta,   gamma = gamma, nrounds = nrounds,
                  verbose = verbose, lambda = xgb_lambda, alpha =xgb_alpha)
   predfun <- function(model, data) {
     v <- predict(model, as.matrix(data))
