@@ -13,7 +13,7 @@ xgb_stack = function(sr, df_var, y_var, xgbname= "xgb.tif", max_depth,
   re = names(sr)
   pre_mat3 = df_var %>% dplyr::select(re)
   stopifnot(all.equal(names(sr), names(pre_mat3)))
-
+  print(names(sr))
   yvar = df_var%>% dplyr::select(y_var) %>% unlist()
   #indep_dep = data.frame(yvar = yvar, pre_mat3)
   #df1 = data.table(indep_dep, keep.rownames = F)
