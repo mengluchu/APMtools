@@ -7,15 +7,11 @@
 #' @param xgbname specify the name/directoray of the predicted raster file to save
 #' @export
 #'
-<<<<<<< HEAD
-xgb_stack = function(sr, df_var, y_var, xgbname= "xgb.tif", max_depth,
-                     eta, nthread, gamma = 1, nrounds,
-                     verbose = 0, xgb_lambda=0, xgb_alpha=0){
-=======
+ 
 xgb_stack = function(sr, df_var, y_var, xgbname= "xgb.tif",max_depth = 5,
                      eta = 0.003 , gamma = 1, nrounds = 1650,
                      verbose = 0, xgb_lambda = 1, xgb_alpha = 0.02){
->>>>>>> 909dcaf9ce05e62f3abbfd966cfd832aa6d5591f
+ 
   re = names(sr)
   pre_mat3 = df_var %>% dplyr::select(re)
   stopifnot(all.equal(names(sr), names(pre_mat3)))
