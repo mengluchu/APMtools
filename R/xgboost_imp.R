@@ -1,11 +1,10 @@
 #' return variable importance xgboost
 #' @export
-xgboost_imp = function(variabledf, max_depth, eta, gamma,  xgb_lambda, xgb_alpha, nrounds,  subsample, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring , ...) {
+xgboost_imp = function(variabledf, max_depth, eta, gamma,  xgb_lambda, xgb_alpha, nrounds,  subsample, y_varname = c("day_value", "night_value", "value_mean"), training,  grepstring , ...) {
     pre_mat =  subset_grep(variabledf, grepstring )%>%dplyr::select(-y_varname)
     x_train = pre_mat[training,]
     y_train = variabledf[training, y_varname]
-    x_test = pre_mat[test, ]
-    y_test = variabledf[test, y_varname]
+
     dfmatrix = as.matrix(x_train)
 
     bst <- xgboost(data = dfmatrix, label = y_train, gamma= gamma, max_depth = max_depth, lambda = xgb_lambda, alpha = xgb_alpha,eta = eta,  subsample = subsample, nrounds = nrounds, verbose = 0)
