@@ -19,7 +19,7 @@
 #' predicLA_RF_XGBtiles(df, lus, "NO2", xgbname=xgbname, rfname = rfname, laname = laname )}
 
 #' @export
-predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, ntree, mtry, gamma, max_depth , eta , xgb_lambda = 1, xgb_alpha = 0.02,  nrounds, ...){
+predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, ntree, mtry,  nrounds = 3000, eta = 0.007, gamma =5,max_depth = 6, xgb_alpha = 0, xgb_lambda = 2, subsample=0.7,...){
   predfun <- function(model, data) {
     v <- predict(model, as.matrix(data ))
   }
@@ -43,25 +43,20 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, n
 
   ##RF
   bst = randomForest(formu, data = indep_dep, ntree = ntree, mtry = mtry )
-  save(bst, file = "rf_bst.rdata")
+  #save(bst, file = "rf_bst.rdata")
   sdayR = predict(rasstack, bst)
   writeRaster(sdayR,rfname , overwrite = TRUE )
 
-
-
   # LA
   L_day <- glmnet::cv.glmnet(as.matrix(pre_mat3),yvar, type.measure = "mse", standardize = TRUE, alpha = 1,  lower.limit = 0)
-  save(L_day, file = "L_day.rdata")
+  #save(L_day, file = "L_day.rdata")
   sdayL = predict(rasstack, L_day, fun = predfun)
   writeRaster(sdayL, laname, overwrite = TRUE )
 
   #xgb
   #pre_mat3$NO2  = inde_var$NO2
-  df1 = data.table(indep_dep, keep.rownames = F)
-  dfmatrix = sparse.model.matrix(formu, data = df1)[, -1]
-  bst <- xgboost(data = dfmatrix, label = yvar,  max_depth = max_depth, eta = eta,   gamma = gamma, lambda = xgb_lambda, alpha =xgb_alpha, nrounds = nrounds, verbose = 0)
-  save(bst, file = "xgboost_bst.rdata")
-  sday = predict(rasstack, bst,  fun = predfun)
-  writeRaster(sday, xgbname, overwrite = TRUE )
+
+  xgb_stack(sr=sr, df_var = indep_dep, y_var = y_var ,xgbname = xgbname,
+          nrounds = nrounds, eta =eta, gamma =gamma,max_depth = max_depth, xgb_alpha = xgb_alpha, xgb_lambda = xgb_lambda, subsample=subsample)
 
 }
