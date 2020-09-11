@@ -48,7 +48,7 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, n
   writeRaster(sdayR,rfname , overwrite = TRUE )
 
   # LA
-  L_day <- glmnet::cv.glmnet(as.matrix(pre_mat3),yvar, type.measure = "mse", standardize = TRUE, alpha = 1,  lower.limit = 0)
+  L_day <- glmnet::cv.glmnet(as.matrix(pre_mat3), yvar, type.measure = "mse", standardize = TRUE, alpha = 1,  lower.limit = 0)
   #save(L_day, file = "L_day.rdata")
   sdayL = predict(rasstack, L_day, fun = predfun)
   writeRaster(sdayL, laname, overwrite = TRUE )
@@ -56,7 +56,7 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, n
   #xgb
   #pre_mat3$NO2  = inde_var$NO2
 
-  xgb_stack(sr=sr, df_var = indep_dep, y_var = y_var ,xgbname = xgbname,
+  xgb_stack(sr=sr, df_var = indep_dep, y_var = "yvar" ,xgbname = xgbname,
           nrounds = nrounds, eta =eta, gamma =gamma,max_depth = max_depth, xgb_alpha = xgb_alpha, xgb_lambda = xgb_lambda, subsample=subsample)
 
 }
