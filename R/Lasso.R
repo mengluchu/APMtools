@@ -21,8 +21,8 @@ Lasso = function(variabledf, vis1 = T, alpha = 1, printlambda =F, y_varname, tra
 
     cvfit <- glmnet::cv.glmnet(as.matrix(pre_mat_tr), y_tr_value, type.measure = "mse", standardize = TRUE, alpha = alpha, lower.limit = 0)
     if (printlambda){
-    print(paste("min:" cvfit$lambda.min))
-    print(paste("1se:"cvfit$lambda.1se))}
+    print(paste("min:", cvfit$lambda.min))
+    print(paste("1se:", cvfit$lambda.1se))}
 
 
     if (vis1) {
