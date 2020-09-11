@@ -8,7 +8,7 @@
 #' @export
 
 
-xgboost_LUR = function(variabledf, max_depth = 4, eta = 0.02,  xgb_lambda=1,xgb_alpha = 0.02, nrounds = 300, gamma = 1, subsample = 0.7, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring, ...) {
+xgboost_LUR = function(variabledf, max_depth, eta,  xgb_lambda, xgb_alpha, nrounds, gamma, subsample, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring, ...) {
 
     pre_mat =  subset_grep(variabledf, grepstring )%>%dplyr::select(-y_varname)
     x_train = pre_mat[training,]
