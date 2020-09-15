@@ -19,7 +19,7 @@ rf_LUR = function(variabledf, vis = F, numtrees = 2000, mtry = 33, y_varname = c
 
     formu = as.formula(paste(y_varname, "~.", sep = ""))
 
-    rf3 <- ranger(formu, data = pre_mat, num.trees = numtrees, mtry = mtry, importance = "impurity")
+    rf3 <- ranger(formu, data = pre_mat, num.trees = numtrees, mtry = mtry, importance = "permutation")
 
     df = data.frame(imp_val = rf3$variable.importance)
 
