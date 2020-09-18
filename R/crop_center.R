@@ -3,6 +3,7 @@
 #'@param ras raster or rasterstack
 #'@param vis if True then apply mapview
 #'@param size windowsize for cropping
+#'@export
 
 crop_center= function(ras, size, vis=F,...){
 a = crop(c, extent(c, floor(nrow(c)/2)-size, floor(nrow(c)/2)+size, floor(ncol(c)/2)-size, floor(ncol(c)/2)+size))

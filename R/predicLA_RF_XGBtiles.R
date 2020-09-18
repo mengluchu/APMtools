@@ -57,6 +57,7 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, n
   #pre_mat3$NO2  = inde_var$NO2
 
   xgb_stack(sr=rasstack, df_var = indep_dep, y_var = "yvar", xgbname = xgbname,
-          nrounds = nrounds, eta =eta, gamma =gamma,max_depth = max_depth, xgb_alpha = xgb_alpha, xgb_lambda = xgb_lambda, subsample=subsample)
+          nrounds = nrounds, eta =eta, gamma =gamma,
+          max_depth = max_depth, xgb_alpha = xgb_alpha, xgb_lambda = xgb_lambda, subsample=subsample)
 
 }
