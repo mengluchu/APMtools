@@ -1,5 +1,4 @@
 #' Quantile Random forest  (using ranger, quantregForest)
-
 #' @param  variabledf the dataframe containing predictors and dependent variable
 #' @param y_varname  name of the dependent variable.
 #' @param training the index for the rows used for training.
@@ -7,7 +6,7 @@
 #' @param upq upper quantile default 0.95
 #' @param lq lower quantile, default 0.05
 #' @param grepstring the variable/column names of predictors in Lasso, grepl stlye, e.g. 'ROAD|pop|temp|wind|Rsp|OMI|eleva|coast'
-#' @return   an error matrix and coverage probability, default 0.90 prediction interval.
+#' @return an error matrix and coverage probability, default 0.90 prediction interval.
 #' @export
 
 
