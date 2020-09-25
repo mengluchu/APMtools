@@ -25,7 +25,7 @@ q_rf_LUR = function(variabledf,  upq = "quantile= 0.05",
   # compute predictions (mean) for each validation site
 
   pred.distribution <- predict(quantRF,
-                               data = x_p[test,],
+                               data = x_test,
                                type = "quantiles",
                                quantiles = seq(0.01, 0.99, by = 0.01))
 
