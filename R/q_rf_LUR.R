@@ -36,7 +36,7 @@ q_rf_LUR = function(variabledf,  upq = "quantile= 0.05",
   t.lower <- (t.quant90[,1])
 
   t.upper <- (t.quant90[,2])
-  covprob90 = mean(t.lower <= y_test &  y_test <= dptest$pred_ul90)
+  covprob90 = mean(t.lower <= y_test &  y_test <= t.upper)
 
   pred <- predict(quantRF, data =x_test, what = mean)
 
