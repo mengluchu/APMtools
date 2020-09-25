@@ -41,7 +41,7 @@ q_rf_LUR = function(variabledf,  upq = "quantile= 0.05",
   pred <- predictions( predict(quantRF, data =x_test, what = mean))
 
   # rf_residual <- pre_rf - rdf_test$NO2
-  return(c(error_matrix(y_test, pred),  covprob90) )
+  return(c(error_matrix(y_test, pred),  covprob90=covprob90 ) )
 
 
 }
