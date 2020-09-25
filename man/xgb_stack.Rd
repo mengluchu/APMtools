@@ -9,14 +9,14 @@ xgb_stack(
   df_var,
   y_var,
   xgbname = "xgb.tif",
-  max_depth = 5,
-  eta = 0.003,
-  nthread = 32,
-  gamma = 1,
-  nrounds = 1650,
+  max_depth,
+  eta,
+  gamma,
+  nrounds,
+  subsample,
   verbose = 0,
-  xgb_lambda = 1,
-  xgb_alpha = 0.02
+  xgb_lambda,
+  xgb_alpha
 )
 }
 \arguments{

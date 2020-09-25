@@ -21,6 +21,6 @@ ug/m3 = ppm * 1000 * 1.91
 \examples{
 \donttest{
 library(countrycode)
-merged$value_mean = ifelse(merged$country\%in\%countrywithppm,ppm2ug(merged$value_mean), merged$value_mean )
+merged$value_mean = ifelse(merged$country%in%countrywithppm,ppm2ug(merged$value_mean), merged$value_mean )
 }
 }

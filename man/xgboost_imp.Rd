@@ -6,16 +6,15 @@
 \usage{
 xgboost_imp(
   variabledf,
-  max_depth = 4,
-  eta = 0.02,
-  gamma = 0,
-  xgb_lambda = 1,
-  xgb_alpha = 0.02,
-  nrounds = 300,
-  subsample = 0.7,
+  max_depth,
+  eta,
+  gamma,
+  xgb_lambda,
+  xgb_alpha,
+  nrounds,
+  subsample,
   y_varname = c("day_value", "night_value", "value_mean"),
-  training,
-  test,
+  training = nrow(variabledf),
   grepstring,
   ...
 )
