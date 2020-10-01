@@ -13,12 +13,13 @@ predicLA_RF_XGBtiles(
   laname,
   ntree,
   mtry,
-  gamma,
-  max_depth,
-  eta,
-  xgb_lambda = 1,
-  xgb_alpha = 0.02,
-  nrounds,
+  nrounds = 3000,
+  eta = 0.007,
+  gamma = 5,
+  max_depth = 6,
+  xgb_alpha = 0,
+  xgb_lambda = 2,
+  subsample = 0.7,
   ...
 )
 }

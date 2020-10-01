@@ -4,7 +4,16 @@
 \alias{Lasso}
 \title{Lasso model for LUR, crossvalidation, default fold (10)}
 \usage{
-Lasso(variabledf, vis1 = T, alpha = 1, y_varname, training, test, grepstring)
+Lasso(
+  variabledf,
+  vis1 = T,
+  alpha = 1,
+  printlambda = F,
+  y_varname,
+  training,
+  test,
+  grepstring
+)
 }
 \arguments{
 \item{variabledf}{the dataframe containing predictors and dependent variable}
