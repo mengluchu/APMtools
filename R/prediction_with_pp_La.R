@@ -1,4 +1,4 @@
-#' Aggregate random forest using lasso
+#' Aggregate random forest using lasso, implementing the idea from the Hastie's book
 #' @param rfmodel ranger model
 #' @param trainingXY training matrix, with same response and predictor names as in the rfmodel
 #' @param testingX  testing matrix, with same response presented in the rfmodel
