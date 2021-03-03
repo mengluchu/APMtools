@@ -10,12 +10,18 @@
 
 xgb_stack = function(sr, df_var, y_var, xgbname= "xgb.tif",max_depth,
                      eta, gamma, nrounds, subsample,
-                     verbose = 0, xgb_lambda, xgb_alpha){
+                     verbose = 0, xgb_lambda, xgb_alpha, grepstring){
 
+ # select predictor variables
+  dfpredict = subset_grep(df_var, grepstring)
+  # choose rasters that match with predictors
+  sr=  subset(sr, names(dfpredict))
+  # match raster and df names
   re = names(sr)
   pre_mat3 = df_var %>% dplyr::select(re)
   stopifnot(all.equal(names(sr), names(pre_mat3)))
-  print(names(sr))
+
+
   yvar = df_var%>% dplyr::select(y_var) %>% unlist()
   #indep_dep = data.frame(yvar = yvar, pre_mat3)
   #df1 = data.table(indep_dep, keep.rownames = F)
