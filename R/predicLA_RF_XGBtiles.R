@@ -19,7 +19,7 @@
 #' predicLA_RF_XGBtiles(df, lus, "NO2", xgbname=xgbname, rfname = rfname, laname = laname )}
 
 #' @export
-predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, ntree, mtry,  nrounds = 3000, eta = 0.007, gamma =5,max_depth = 6, xgb_alpha = 0, xgb_lambda = 2, subsample=0.7,...){
+predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, ntree, mtry,  nrounds = 3000, eta = 0.007, gamma =5,max_depth = 6, xgb_alpha = 0, xgb_lambda = 2, subsample=0.7, grepstring...){
   predfun <- function(model, data) {
     v <- predict(model, as.matrix(data ))
   }
@@ -27,7 +27,12 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, n
   #indep_dep = subset_grep(df, paste0(yname,"|",varstring) # RESPONSE+PREDICTOR matrix
   #varstring=NULL; pre_mat3 = ifelse(is.null(varstring), df, subset_grep(df, varstring)) # prediction matrix
   # reorder the dataframe!
+
+  dfpredict = subset_grep(df, grepstring)
+  # choose rasters that match with predictors
+  rasstack=  subset(rasstack, names(dfpredict))
   re = names(rasstack)
+  #reorder if necessary
   pre_mat3 = df%>% dplyr::select (re)
 
   # make sure the nams match!
@@ -57,7 +62,7 @@ predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, n
   #pre_mat3$NO2  = inde_var$NO2
 
   xgb_stack(sr=rasstack, df_var = indep_dep, y_var = "yvar", xgbname = xgbname,
-          nrounds = nrounds, eta =eta, gamma =gamma,
-          max_depth = max_depth, xgb_alpha = xgb_alpha, xgb_lambda = xgb_lambda, subsample=subsample)
+            nrounds = nrounds, eta =eta, gamma =gamma,
+            max_depth = max_depth, xgb_alpha = xgb_alpha, xgb_lambda = xgb_lambda, subsample=subsample)
 
 }
