@@ -15,7 +15,7 @@ xgb_stack = function(sr, df_var, y_var, xgbname= "xgb.tif",max_depth,
  # select predictor variables
   dfpredict = subset_grep(df_var, grepstring)
   # choose rasters that match with predictors
-  sr=  subset(sr, names(dfpredict))
+  sr=  raster::subset(sr, names(dfpredict))
   # match raster and df names
   re = names(sr)
   pre_mat3 = df_var %>% dplyr::select(re)

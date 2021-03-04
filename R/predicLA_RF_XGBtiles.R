@@ -19,50 +19,38 @@
 #' predicLA_RF_XGBtiles(df, lus, "NO2", xgbname=xgbname, rfname = rfname, laname = laname )}
 
 #' @export
-predicLA_RF_XGBtiles <-function(df, rasstack, yname,  xgbname, rfname, laname, ntree, mtry,  nrounds = 3000, eta = 0.007, gamma =5,max_depth = 6, xgb_alpha = 0, xgb_lambda = 2, subsample=0.7, grepstring){
+#'
+#'
+#'
+
+predicLA_RF_XGBtiles0 = function (df, rasstack, yname, xgbname, rfname, laname, ntree,
+                                  mtry, nrounds = 3000, eta = 0.007, gamma = 5, max_depth = 6,
+                                  xgb_alpha = 0, xgb_lambda = 2, subsample = 0.7, grepstring)
+{
   predfun <- function(model, data) {
-    v <- predict(model, as.matrix(data ))
+    v <- predict(model, as.matrix(data))
   }
-
-  #indep_dep = subset_grep(df, paste0(yname,"|",varstring) # RESPONSE+PREDICTOR matrix
-  #varstring=NULL; pre_mat3 = ifelse(is.null(varstring), df, subset_grep(df, varstring)) # prediction matrix
-  # reorder the dataframe!
-
-  dfpredict = subset_grep(df, grepstring)
-  # choose rasters that match with predictors
-  rasstack=  subset(rasstack, names(dfpredict))
+  dfpredict = subset_grep(df, grepstring = grepstring)
+  rasstack = raster::subset(rasstack, names(dfpredict))
   re = names(rasstack)
-  #reorder if necessary
-  pre_mat3 = df%>% dplyr::select (re)
-
-  # make sure the nams match!
+  pre_mat3 = df %>% dplyr::select(re)
   stopifnot(all.equal(names(rasstack), names(pre_mat3)))
-
   pre_mat3 = na.omit(pre_mat3)
-  # .$y
-  yvar = df%>% dplyr::select(yname)%>%unlist()
-  #yvar = df%>% .$yname
+  yvar = df %>% dplyr::select(yname) %>% unlist()
   indep_dep = data.frame(yvar = yvar, pre_mat3)
-  names(indep_dep)[1]="yvar"
+  names(indep_dep)[1] = "yvar"
   formu = as.formula(paste("yvar", "~.", sep = ""))
-
-  ##RF
-  bst = randomForest(formu, data = indep_dep, ntree = ntree, mtry = mtry )
-  #save(bst, file = "rf_bst.rdata")
+  bst = randomForest(formu, data = indep_dep, ntree = ntree,
+                     mtry = mtry)
   sdayR = predict(rasstack, bst)
-  writeRaster(sdayR,rfname , overwrite = TRUE )
-
-  # LA
-  L_day <- glmnet::cv.glmnet(as.matrix(pre_mat3), yvar, type.measure = "mse", standardize = TRUE, alpha = 1,  lower.limit = 0)
-  #save(L_day, file = "L_day.rdata")
+  writeRaster(sdayR, rfname, overwrite = TRUE)
+  L_day <- glmnet::cv.glmnet(as.matrix(pre_mat3), yvar, type.measure = "mse",
+                             standardize = TRUE, alpha = 1, lower.limit = 0)
   sdayL = predict(rasstack, L_day, fun = predfun)
-  writeRaster(sdayL, laname, overwrite = TRUE )
-
-  #xgb
-  #pre_mat3$NO2  = inde_var$NO2
-
-  xgb_stack(sr=rasstack, df_var = indep_dep, y_var = "yvar", xgbname = xgbname,
-            nrounds = nrounds, eta =eta, gamma =gamma,
-            max_depth = max_depth, xgb_alpha = xgb_alpha, xgb_lambda = xgb_lambda, subsample=subsample)
-
+  writeRaster(sdayL, laname, overwrite = TRUE)
+  xgb_stack(sr = rasstack, df_var = indep_dep, y_var = "yvar",
+            xgbname = xgbname, nrounds = nrounds, eta = eta, gamma = gamma,
+            max_depth = max_depth, xgb_alpha = xgb_alpha, xgb_lambda = xgb_lambda,
+            subsample = subsample, grepstring = grepstring)
 }
+
