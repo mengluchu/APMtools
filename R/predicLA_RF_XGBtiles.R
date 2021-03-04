@@ -18,7 +18,7 @@
 #' df = retrieve_predictor(lus, bakfile1, c("Lon", "Lat"), proj)
 #' predicLA_RF_XGBtiles(df, lus, "NO2", xgbname=xgbname, rfname = rfname, laname = laname )}
 #' @export
-predicLA_RF_XGBtiles0 = function (df, rasstack, yname, xgbname, rfname, laname, ntree,
+predicLA_RF_XGBtiles= function (df, rasstack, yname, xgbname, rfname, laname, ntree,
                                   mtry, nrounds = 3000, eta = 0.007, gamma = 5, max_depth = 6,
                                   xgb_alpha = 0, xgb_lambda = 2, subsample = 0.7, grepstring)
 {
