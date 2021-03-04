@@ -19,9 +19,7 @@
 #' predicLA_RF_XGBtiles(df, lus, "NO2", xgbname=xgbname, rfname = rfname, laname = laname )}
 
 #' @export
-#'
-#'
-#'
+
 
 predicLA_RF_XGBtiles0 = function (df, rasstack, yname, xgbname, rfname, laname, ntree,
                                   mtry, nrounds = 3000, eta = 0.007, gamma = 5, max_depth = 6,
