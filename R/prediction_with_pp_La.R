@@ -16,7 +16,7 @@ prediction_with_pp_La = function(rfmodel, trainingXY, trainingY, testingX)
   # prediction
   pred = predict(cvfit, newx = rpre) # use the regularization (here lasso) model to predict
   # get the entire distribution
-  Ls= Lassoselected(cvfit)
+  Ls= lassoselected(cvfit)
   Ls_num= as.vector(sapply(Ls, function(x) as.numeric(substr(x, start =2, stop = nchar(x)))))
 
   # aggregating trees using lasso, compare with original random forest, obtained better results
