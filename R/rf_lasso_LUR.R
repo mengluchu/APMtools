@@ -12,22 +12,25 @@
 
 rf_Lasso_LUR = function(variabledf, vis = F, numtrees = 1000, mtry = NULL, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring, ...) {
   prenres = paste(y_varname, "|", grepstring, sep = "")
-  pre_mat = subset_grep(variabledf[training, ], prenres)
+  pre_mat = subset_grep(variabledf, prenres)
+  x_train = pre_mat[training, ]
+  y_train =pre_mat[training, y_varname]
   y_test = pre_mat[test, y_varname]
   x_test = pre_mat[test, ]
-
+  print(x_test)
   formu = as.formula(paste(y_varname, "~.", sep = ""))
 
-  rf3 <- ranger(formu, data = pre_mat, num.trees = numtrees, mtry = mtry, importance = "impurity")
+  rf3 <- ranger(formu, data = x_train, num.trees = numtrees, mtry = mtry, importance = "impurity")
 
-  df = data.frame(imp_val = rf3$variable.importance)
+  dfr = data.frame(imp_val = rf3$variable.importance)
 
   if (vis) {
-    imp_plot = ggplot(df, aes(x = reorder(rownames(df), imp_val), y = imp_val, fill = imp_val)) + geom_bar(stat = "identity", position = "dodge") + coord_flip() + ylab("Variable Importance") + xlab("") + ggtitle(paste("Information Value Summary",                                                                                                                                                                                                                        y_varname, sep = ": ")) + guides(fill = F) + scale_fill_gradient(low = "red", high = "blue")
+    imp_plot = ggplot(df, aes(x = reorder(rownames(dfr), imp_val), y = imp_val, fill = imp_val)) + geom_bar(stat = "identity", position = "dodge") + coord_flip() + ylab("Variable Importance") + xlab("") + ggtitle(paste("Information Value Summary",                                                                                                                                                                                                                        y_varname, sep = ": ")) + guides(fill = F) + scale_fill_gradient(low = "red", high = "blue")
     print(imp_plot)
   }
-  pre = prediction_with_pp_La (rf3, as.matrix(pre_mat), variabledf[training, y_varname], as.matrix(x_test))
+  pre = prediction_with_pp_La (rf3, as.matrix(x_train), y_train,  x_test)
   rfcrps = crps_sample(y = y_test, pre[[2]], method = "edf") # rf
 
   return(c(error_matrix(y_test, pre[[1]]), meancrps = mean(rfcrps), mediancrps = median(rfcrps)))
 }
+
