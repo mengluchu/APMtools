@@ -39,9 +39,10 @@ q_rf_LUR = function(variabledf,  upq = "quantile= 0.05",
   covprob90 = mean(t.lower <= y_test &  y_test <= t.upper)
 
   pred <- predictions( predict(quantRF, data =x_test, what = mean))
+  rfcrps = crps_sample(y = y_test, pred.distribution$predictions, method = "edf") # rf
 
   # rf_residual <- pre_rf - rdf_test$NO2
-  return(c(error_matrix(y_test, pred),  covprob90=covprob90 ) )
+  return(c(error_matrix(y_test, pred),  covprob90=covprob90, meancrps = mean(rfcrps), mediancrps=median(rfcrps) ) )
 
 
 }
