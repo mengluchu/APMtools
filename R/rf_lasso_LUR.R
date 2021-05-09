@@ -10,7 +10,7 @@
 #' @export
 
 
-rf_Lasso_LUR = function(variabledf, vis = F, numtrees = 2000, mtry = 33, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring, ...) {
+rf_Lasso_LUR = function(variabledf, vis = F, numtrees = 1000, mtry = NULL, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring, ...) {
   prenres = paste(y_varname, "|", grepstring, sep = "")
   pre_mat = subset_grep(variabledf[training, ], prenres)
   y_test = variabledf[test, y_varname]
@@ -26,6 +26,8 @@ rf_Lasso_LUR = function(variabledf, vis = F, numtrees = 2000, mtry = 33, y_varna
     imp_plot = ggplot(df, aes(x = reorder(rownames(df), imp_val), y = imp_val, fill = imp_val)) + geom_bar(stat = "identity", position = "dodge") + coord_flip() + ylab("Variable Importance") + xlab("") + ggtitle(paste("Information Value Summary",                                                                                                                                                                                                                        y_varname, sep = ": ")) + guides(fill = F) + scale_fill_gradient(low = "red", high = "blue")
     print(imp_plot)
   }
-  pre = prediction_with_pp_La (rf3, as.matrix(pre_mat), variabledf[training, y_varname], as.matrix(variabledf[test,]))
-  return(error_matrix(y_test, pre))
+  pre = prediction_with_pp_La (rf3, as.matrix(pre_mat), variabledf[training, y_varname], x_test)
+  rfcrps = crps_sample(y = y_test, pre[[2]], method = "edf") # rf
+
+  return(c(error_matrix(y_test, pre[[1]]), meancrps = mean(rfcrps), mediancrps = median(rfcrps)))
 }
