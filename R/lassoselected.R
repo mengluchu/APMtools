@@ -2,7 +2,7 @@
 #' @param cvfit the result of cvfit
 #' @export
 
-Lassoselected = function(cvfit) {
+lassoselected = function(cvfit) {
     coefall <- coef(cvfit)[-1]  # lambda.1se
     coefselected <- which(coefall != 0)
     allvarnames = dimnames(coef(cvfit))[[1]][-1]
