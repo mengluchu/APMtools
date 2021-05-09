@@ -10,6 +10,7 @@
 #' @export
 
 
+
 rf_Lasso_LUR = function(variabledf, vis = F, numtrees = 1000, mtry = NULL, y_varname = c("day_value", "night_value", "value_mean"), training, test, grepstring, ...) {
   prenres = paste(y_varname, "|", grepstring, sep = "")
   pre_mat = subset_grep(variabledf, prenres)
@@ -17,7 +18,7 @@ rf_Lasso_LUR = function(variabledf, vis = F, numtrees = 1000, mtry = NULL, y_var
   y_train =pre_mat[training, y_varname]
   y_test = pre_mat[test, y_varname]
   x_test = pre_mat[test, ]
-  print(x_test)
+
   formu = as.formula(paste(y_varname, "~.", sep = ""))
 
   rf3 <- ranger(formu, data = x_train, num.trees = numtrees, mtry = mtry, importance = "impurity")
@@ -29,8 +30,10 @@ rf_Lasso_LUR = function(variabledf, vis = F, numtrees = 1000, mtry = NULL, y_var
     print(imp_plot)
   }
   pre = prediction_with_pp_La (rf3, as.matrix(x_train), y_train,  x_test)
-  rfcrps = crps_sample(y = y_test, pre[[2]], method = "edf") # rf
 
-  return(c(error_matrix(y_test, pre[[1]]), meancrps = mean(rfcrps), mediancrps = median(rfcrps)))
+  rfcrps = crps_sample(y = y_test, pre$dist, method = "edf") # rf
+
+  return(c(error_matrix(y_test, pre$pred), meancrps = mean(rfcrps), mediancrps = median(rfcrps)))
 }
+
 
