@@ -1,4 +1,4 @@
-#'@title crop to center and quick view with mapview
+#'@title crop a (raster or stack) from center and quick view with mapview
 
 #'@param ras raster or rasterstack
 #'@param vis if True then apply mapview
